@@ -4,15 +4,23 @@ import './Products.css';
 import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper/core';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+import Modal from 'react-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 SwiperCore.use([Navigation, Pagination, Autoplay]);
+
 export default function Products() {
     const [categorias, setCategorias] = useState([]);
     const [loading, setLoading] = useState(true);
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
     const [fixedCategories, setFixedCategories] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+    const [cantidad, setCantidad] = useState(1); // Estado para la cantidad de productos en el carrito
     const categoriasRefs = useRef([]);
     const categoriasInputRef = useRef(null);
     const swiperRef = useRef(null);
+    const [productos, setProductos] = useState([]);
     useEffect(() => {
         cargarProductos();
         window.addEventListener('scroll', handleScroll);
@@ -26,10 +34,8 @@ export default function Products() {
             setFixedCategories(true);
         } else {
             setFixedCategories(false);
-            // setCategoriaSeleccionada(null); // Deseleccionar la categoría cuando vuelva a ser relativa
         }
     };
-
 
     const cargarProductos = () => {
         fetch(`${baseURL}/productosGet.php`, {
@@ -37,7 +43,6 @@ export default function Products() {
         })
             .then(response => response.json())
             .then(data => {
-                // Agrupar productos por categoría
                 const categoriasMap = new Map();
                 data.productos.forEach(producto => {
                     const categoria = producto.categoria;
@@ -47,7 +52,6 @@ export default function Products() {
                         categoriasMap.set(categoria, [producto]);
                     }
                 });
-                // Convertir Map a array de objetos para el estado
                 const categoriasArray = Array.from(categoriasMap, ([categoria, productos]) => ({ categoria, productos }));
                 setCategorias(categoriasArray);
                 setLoading(false);
@@ -73,6 +77,52 @@ export default function Products() {
         categoriasRefs.current[index].scrollIntoView({ behavior: 'smooth' });
     };
 
+    const openModal = (producto) => {
+        setProductoSeleccionado(producto);
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
+    const addToCart = () => {
+        if (productoSeleccionado) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingItemIndex = cart.findIndex(item => item.idProducto === productoSeleccionado.idProducto);
+
+            if (existingItemIndex !== -1) {
+                // Si el producto ya existe en el carrito, actualizamos la cantidad
+                cart[existingItemIndex].cantidad += cantidad;
+            } else {
+                // Si el producto no existe en el carrito, lo agregamos
+                cart.push({ idProducto: productoSeleccionado.idProducto, cantidad });
+            }
+
+            // Actualizamos el carrito en el localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Llamamos a la función openModal() con la información del producto añadido
+            openModal({ ...productoSeleccionado, cantidad });
+
+            // Agregamos la llamada a cargarProductos para actualizar la lista de productos en Products
+            cargarProductos();
+        }
+    };
+
+
+
+
+    const incrementCantidad = () => {
+        setCantidad(cantidad + 1);
+    };
+
+    const decrementCantidad = () => {
+        if (cantidad > 1) {
+            setCantidad(cantidad - 1);
+        }
+    };
+
     return (
         <div className='ProductsContain'>
             <div className={`categoriasInputs ${fixedCategories ? 'fixed' : ''}`} ref={categoriasInputRef}>
@@ -89,7 +139,7 @@ export default function Products() {
                     />
                 ))}
             </div>
-            <div >
+            <div>
                 {loading ? (
                     <div className='loadingBanner'></div>
                 ) : (
@@ -97,7 +147,6 @@ export default function Products() {
                         {categorias.map(({ categoria, productos }, index) => (
                             <div key={categoria} className='categoriSection' ref={ref => categoriasRefs.current[index] = ref}>
                                 <h3>{categoria}</h3>
-
                                 <Swiper
                                     effect={'coverflow'}
                                     grabCursor={true}
@@ -107,7 +156,7 @@ export default function Products() {
                                 >
                                     {productos.map(item => (
                                         <SwiperSlide id='SwiperSlide-scroll-products' key={index}>
-                                            <div className='cardProdcut' key={item.idProducto}>
+                                            <div className='cardProdcut' key={item.idProducto} onClick={() => openModal(item)}>
                                                 <img src={obtenerImagen(item)} alt="imagen" />
                                                 <div className='cardText'>
                                                     <h4>{item.titulo}</h4>
@@ -117,19 +166,84 @@ export default function Products() {
                                             </div>
                                         </SwiperSlide>
                                     ))}
-
                                 </Swiper>
-
-
                             </div>
                         ))}
                     </div>
                 )}
-
-                <div className='espacio'>
-
-                </div>
+                <div className='espacio'></div>
             </div>
+            <Modal isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                className="modal-detail"
+                overlayClassName="overlay-detail">
+                {productoSeleccionado && (
+                    <div className='modal-content-detail'>
+                        <button onClick={closeModal} className='back'>  <FontAwesomeIcon icon={faArrowLeft} /></button>
+                        <Swiper
+                            effect={'coverflow'}
+                            grabCursor={true}
+                            loop={true}
+                            slidesPerView={'auto'}
+                            coverflowEffect={{ rotate: 0, stretch: 0, depth: 100, modifier: 2.5 }}
+                            navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
+                            autoplay={{ delay: 3000 }}
+                            pagination={{ clickable: true }}
+                            onSwiper={(swiper) => {
+                                console.log(swiper);
+                                swiperRef.current = swiper;
+                            }}
+                            id='swiper_container_Imgs'
+                        >
+                            {productoSeleccionado.imagen1 ? (
+                                <SwiperSlide id='SwiperSlide-scroll-img'>
+                                    <img src={productoSeleccionado.imagen1} alt="" />
+                                </SwiperSlide>
+                            ) : (
+                                null
+                            )}
+
+                            {productoSeleccionado.imagen2 ? (
+                                <SwiperSlide id='SwiperSlide-scroll-img'>
+                                    <
+                                        img src={productoSeleccionado.imagen2} alt="" />
+                                </SwiperSlide>
+                            ) : (
+                                null
+                            )}
+                            {productoSeleccionado.imagen3 ? (
+                                <SwiperSlide id='SwiperSlide-scroll-img'>
+                                    <img src={productoSeleccionado.imagen3} alt="" />
+                                </SwiperSlide>
+                            ) : (
+                                null
+                            )}
+                            {productoSeleccionado.imagen4 ? (
+                                <SwiperSlide id='SwiperSlide-scroll-img'>
+                                    <img src={productoSeleccionado.imagen4} alt="" />
+                                </SwiperSlide>
+                            ) : (
+                                null
+                            )}
+                        </Swiper>
+                        <div className='modalText'>
+                            <h2>{productoSeleccionado.titulo}</h2>
+                            <p>{productoSeleccionado.categoria}</p>
+                            <p>{productoSeleccionado.descripcion}</p>
+                            <h5>${`${productoSeleccionado?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+
+                        </div>
+                        <div className='deColumn'>
+                            <div className='deFlexCart'>
+                                <button onClick={decrementCantidad}>-</button>
+                                <span>{cantidad}</span>
+                                <button onClick={incrementCantidad}>+</button>
+                            </div>
+                            <button onClick={addToCart} className='btn'>Agregar al carrito</button>
+                        </div>
+                    </div>
+                )}
+            </Modal>
         </div>
     );
 }

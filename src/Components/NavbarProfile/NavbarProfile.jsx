@@ -6,6 +6,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../images/logo.png';
 import fondo from '../../images/Fondo.png';
 import './NavbarProfile.css'
+import Cart from '../Cart/Cart'
 export default function NavbarProfile() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -20,7 +21,7 @@ export default function NavbarProfile() {
                     <Anchor to={`/`} >Inicio</Anchor>
                     <Anchor to={`/demo`} >Demo</Anchor>
                 </div>
-
+                <Cart />
                 <div className='deFlexnav'>
                     <div className={`nav_toggle  ${isOpen && "open"}`} onClick={() => setIsOpen(!isOpen)}>
                         <span></span>
