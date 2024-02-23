@@ -1,0 +1,26 @@
+.headerBack {
+    display: none;
+}
+.back{
+    color: var(--blanco);
+}
+@media (max-width: 900px) {
+    .headerBack{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        position: fixed;
+        width: 100%;
+        background-color: var(--color1);
+        z-index: 2;
+       
+     }
+     .headerBack a{
+         color: var(--blanco);
+     }
+     .headerBack span{
+         color: var(--blanco);
+         font-weight: 500
+     }
+}
