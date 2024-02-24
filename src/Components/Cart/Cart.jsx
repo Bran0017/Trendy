@@ -118,7 +118,7 @@ export default function Cart() {
                                     <div className='cardProductCartText'>
                                         <h3>{item.titulo}</h3>
                                         <p>Cantidad: {item.cantidad}</p>
-                                        <p>Precio: ${item?.precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                                        <p>Precio: ${item?.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
 
                                     </div>
                                     <button onClick={() => removeFromCart(item.idProducto)} className='deleteCart'> X</button>
@@ -128,7 +128,7 @@ export default function Cart() {
                     )}
                 </div>
                 <div className='deColumn'>
-                    <h4>Total: ${totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h4>
+                    <h4>Total: ${totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h4>
                     <button className='btn'>
                         Realizar pedido
                     </button>
