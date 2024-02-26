@@ -10,7 +10,7 @@
   --text-color2: #5c5959;
   --bg-color: #111111;
   --gris:#fafafa;
-  --gris2:#dedcdc;
+  --gris2:#f3eeee;
   --color1:#F80050;
   --color2:#752FB5;
   --color3:rgba(31, 135, 233, 0.455);
@@ -29,7 +29,7 @@ a{
  body{
   background-color: var(--gris);
  }
- a, .detail-contain img, p,.modal,#SwiperSlide-scroll-products,  .categoriasInputs input{
+ a, .detail-contain img, p,.modal,#SwiperSlide-scroll-products,  .categoriasInputs input,.cardProdcutSelected, .cardProdcutmasVendido{
   opacity: 0;
   animation: slideFromLeft 1s ease-in-out forwards;
   -webkit-animation: slideFromLeft 1s ease-in-out forwards;

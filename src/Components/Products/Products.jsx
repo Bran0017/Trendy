@@ -6,13 +6,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-SwiperCore.use([Navigation, Pagination, Autoplay]);
+import { faArrowLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 export default function Products() {
     const [categorias, setCategorias] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
     const [fixedCategories, setFixedCategories] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [productoSeleccionado, setProductoSeleccionado] = useState(null);
@@ -21,6 +22,12 @@ export default function Products() {
     const categoriasInputRef = useRef(null);
     const swiperRef = useRef(null);
     const [productos, setProductos] = useState([]);
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todo');
+
+    // Función para manejar el clic en una categoría
+    const handleClickCategoria = (categoria) => {
+        setCategoriaSeleccionada(categoria);
+    };
     useEffect(() => {
         cargarProductos();
         window.addEventListener('scroll', handleScroll);
@@ -55,6 +62,7 @@ export default function Products() {
                 const categoriasArray = Array.from(categoriasMap, ([categoria, productos]) => ({ categoria, productos }));
                 setCategorias(categoriasArray);
                 setLoading(false);
+                setProductos(data.productos); // Guardamos todos los productos
             })
             .catch(error => console.error('Error al cargar productos:', error));
     };
@@ -84,6 +92,7 @@ export default function Products() {
 
     const closeModal = () => {
         setModalIsOpen(false);
+        setCantidad(1);
     };
 
     const addToCart = () => {
@@ -107,6 +116,7 @@ export default function Products() {
 
             // Agregamos la llamada a cargarProductos para actualizar la lista de productos en Products
             cargarProductos();
+            toast.success('Producto agregado');
         }
     };
 
@@ -125,16 +135,30 @@ export default function Products() {
 
     return (
         <div className='ProductsContain'>
+            <ToastContainer />
             <div className={`categoriasInputs ${fixedCategories ? 'fixed' : ''}`} ref={categoriasInputRef}>
+
+                <input
+                    type="button"
+                    value="Todo"
+                    onClick={() => handleClickCategoria('Todo')}
+                    style={{
+                        backgroundColor: categoriaSeleccionada === 'Todo' ? '#F80050' : '',
+                        color: categoriaSeleccionada === 'Todo' ? '#fff' : '',
+                        borderBottom: categoriaSeleccionada === 'Todo' ? '2px solid #F80050' : 'none'
+                    }}
+                />
+
                 {categorias.map(({ categoria }, index) => (
                     <input
                         key={categoria}
                         type="button"
                         value={categoria}
-                        onClick={() => scrollToCategoria(index)}
+                        onClick={() => handleClickCategoria(categoria)}
                         style={{
-                            color: categoriaSeleccionada === index ? '#F80050' : '',
-                            borderBottom: categoriaSeleccionada === index ? '2px solid #F80050' : 'none'
+                            backgroundColor: categoriaSeleccionada === categoria ? '#F80050' : '',
+                            color: categoriaSeleccionada === categoria ? '#fff' : '',
+                            borderBottom: categoriaSeleccionada === categoria ? '2px solid #F80050' : 'none'
                         }}
                     />
                 ))}
@@ -143,35 +167,94 @@ export default function Products() {
                 {loading ? (
                     <div className='loadingBanner'></div>
                 ) : (
-                    <div className='Products' style={{ paddingTop: categoriasInputRef.current ? categoriasInputRef.current.clientHeight : 100 }}>
-                        {categorias.map(({ categoria, productos }, index) => (
-                            <div key={categoria} className='categoriSection' ref={ref => categoriasRefs.current[index] = ref}>
-                                <h3>{categoria}</h3>
-                                <Swiper
-                                    effect={'coverflow'}
-                                    grabCursor={true}
-                                    loop={true}
-                                    slidesPerView={'auto'}
-                                    id='swiper_container_products'
-                                >
-                                    {productos.map(item => (
-                                        <SwiperSlide id='SwiperSlide-scroll-products' key={index}>
-                                            <div className='cardProdcut' key={item.idProducto} onClick={() => openModal(item)}>
-                                                <img src={obtenerImagen(item)} alt="imagen" />
-                                                <div className='cardText'>
-                                                    <h4>{item.titulo}</h4>
-                                                    <p>{item.descripcion}</p>
-                                                    <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
-                                                </div>
-                                            </div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
+                    <div >
+                        {categoriaSeleccionada === 'Todo' && (
+                            <div className='Products'>
+                                {productos.some(item => item.masVendido === "si") && (
+                                    <div className='categoriSection'>
+
+
+                                        <Swiper
+                                            effect={'coverflow'}
+                                            grabCursor={true}
+                                            slidesPerView={'auto'}
+                                            id='swiper_container_products'
+                                        >
+                                            {productos.filter(item => item.masVendido === "si").map(item => (
+                                                <SwiperSlide id='SwiperSlide-scroll-products-masvendidos' key={item.idProducto}>
+                                                    <div className='cardProdcutmasVendido' onClick={() => openModal(item)}>
+                                                        <img src={obtenerImagen(item)} alt="imagen" />
+                                                        <h6 className='masVendido'>Más Vendido</h6>
+                                                        <div className='cardText'>
+                                                            <h4>{item.titulo}</h4>
+                                                            <p>{item.descripcion}</p>
+                                                            <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                        </div>
+                                                    </div>
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                    </div>
+
+                                )}
+
+                                {categorias.map(({ categoria, productos }, index) => (
+                                    <div key={categoria} className='categoriSection' ref={ref => categoriasRefs.current[index] = ref}>
+
+                                        <h3 className='title'>{categoria}</h3>
+                                        <Swiper
+                                            effect={'coverflow'}
+                                            grabCursor={true}
+                                            slidesPerView={'auto'}
+                                            id='swiper_container_products'
+                                        >
+                                            {productos.map(item => (
+                                                <SwiperSlide id='SwiperSlide-scroll-products' key={item.idProducto}>
+                                                    <div className='cardProdcut' key={item.idProducto} onClick={() => openModal(item)}>
+                                                        <img src={obtenerImagen(item)} alt="imagen" />
+                                                        <div className='cardText'>
+                                                            <h4>{item.titulo}</h4>
+                                                            <p>{item.descripcion}</p>
+                                                            <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                            <FontAwesomeIcon icon={faAngleDoubleRight} className='iconCard' />
+                                                        </div>
+                                                    </div>
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        )}
+
+
+                        <div className='categoriSectionSelected'>
+                            {productos
+                                // Filtra los productos solo para la categoría seleccionada
+                                .filter(item => categoriaSeleccionada !== 'Todo' && item.categoria === categoriaSeleccionada)
+                                // Mapea para renderizar los productos dentro de la categoría
+                                .map(item => (
+                                    <div key={item.idProducto}>
+                                        <div className='cardProdcutSelected' onClick={() => openModal(item)}>
+                                            <img src={obtenerImagen(item)} alt="imagen" />
+                                            <div className='cardTextSelected'>
+                                                <h4>{item.titulo}</h4>
+                                                <p>{item.descripcion}</p>
+                                                <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                <FontAwesomeIcon icon={faAngleDoubleRight} className='iconCard' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                        </div>
+
+
+
+
+
                     </div>
                 )}
-                <div className='espacio'></div>
+
             </div>
             <Modal isOpen={modalIsOpen}
                 onRequestClose={closeModal}
@@ -229,17 +312,17 @@ export default function Products() {
                         <div className='modalText'>
                             <h2>{productoSeleccionado.titulo}</h2>
                             <p>{productoSeleccionado.categoria}</p>
-                            <p>{productoSeleccionado.descripcion}</p>
+                            <p>{productoSeleccionado.descripcion} </p>
                             <h5>${`${productoSeleccionado?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
 
                         </div>
-                        <div className='deColumn'>
+                        <div className='deFlexGoTocart'>
                             <div className='deFlexCart'>
                                 <button onClick={decrementCantidad}>-</button>
                                 <span>{cantidad}</span>
                                 <button onClick={incrementCantidad}>+</button>
                             </div>
-                            <button onClick={addToCart} className='btn'>Agregar al carrito</button>
+                            <button onClick={addToCart} className='btn'>Agregar  (  ${`${productoSeleccionado?.precio * cantidad}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} )</button>
                         </div>
                     </div>
                 )}

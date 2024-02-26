@@ -25,11 +25,11 @@
 
 @media (max-width: 700px){
     .BannerContain{
-        padding: 2%;
+        padding: 0px 3%;
         padding-top: 4rem;
     }
     #swiper_container{
-    height: 20vh;
+    height: 23vh;
     border-radius: 15px;
 }
      .loadingBanner{

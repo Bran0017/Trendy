@@ -7,6 +7,7 @@
     flex-direction: column;
     gap: 2rem;
     width: 100%;
+    padding-top: 2rem;
 }
 .categoriaProductos{
     display: flex;
@@ -15,18 +16,72 @@
 }
 .cardProdcut{
     display: flex;
+    overflow: hidden;
+    width: 23rem;
+    height: 8rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.073);
+    background-color: var(--blanco);
+   
+}
+.cardProdcutSelected{
+    display: flex;
+    width: 23rem;
+    height: 8rem;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.073);
+    background-color: var(--blanco);
+    padding: 10px;
+    overflow: hidden;
+   
+}
+.cardProdcutmasVendido{
+    display: flex;
     flex-direction: column;
     overflow: hidden;
     width: 13rem;
     height: 14rem;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.17);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.073);
     background-color: var(--blanco);
+    position: relative;
 }
-.cardProdcut img{
+.masVendido{
+    position: absolute;
+    background-color: var(--color1);
+    padding: 6px;
+    color: var(--blanco);
+    border-radius: 2px;
+   
+}
+.iconCard{
+    position: absolute;
+    top: 70%;
+    left: 90%;
+    background-color: var(--color1);
+    color: var(--blanco);
+    padding: 3px;
+    border-radius: 3px;
+    font-size: 12px;
+    
+}
+.cardProdcutmasVendido  img{
     width: 100%;
     height: 8rem;
     object-fit: cover;
+   
+    
+}
+.cardProdcut  img{
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+}
+.cardProdcutSelected  img{
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+    border-radius: 15px;
 }
 .cardText{
     padding: 10px;
@@ -41,7 +96,7 @@
     text-overflow: ellipsis;
     max-width: 40ch;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 19px;
     color: var(--text-color2);
 }
 .cardText h5{
@@ -57,7 +112,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100ch;
+    max-width: 30ch;
     font-weight: 400;
     font-size: 14px;
     color: var(--text-color2);
@@ -72,11 +127,11 @@
     background-color: var(--blanco);
   }
   .categoriasInputs{
-   
     display: flex;
     align-items: center;
     overflow-x: scroll;
-   
+    padding-top: 1rem;
+    gap: 2rem;
   }
   .categoriasInputs::-webkit-scrollbar{
  
@@ -89,14 +144,16 @@
  
   }
   .categoriasInputs input{
-    background-color: transparent;
     border: none;
     cursor: pointer;
     z-index: 10;
-    padding: 20px 20px 5px;
+    padding: 10px 20px 5px;
     font-size: 18px;
     color: var(--text-color2);
-  }
+    border-radius: 20px;
+   
+    
+}
 
   #swiper_container_products{
   
@@ -104,43 +161,70 @@
   
   }
   #SwiperSlide-scroll-products{
-    width: 13rem;
+    width: 23rem;
     margin: 1rem 1rem 2rem 1rem;
   
+  }
+  #SwiperSlide-scroll-products-masvendidos{
+    width: 13rem;
+    margin: 1rem 1rem 2rem 1rem;
   }
   .categoriSection{
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 1rem;
+   
   
 }
 .espacio{
     height: 100vh;
 }
-.categoriSection h3{
+.title {
     padding: 0px 1rem 0;
     font-weight: 500;
    color: var(--text-color2);
 }
 .back{
-    background-color: #ffffff30;
+    background-color: var(--blanco);
     border: none;
     text-align: left;
     cursor: pointer;
-    padding: 10px 20px;
-    position: absolute;
+    padding: 10px 12px;
+    margin: 10px;
+    position: fixed;
     z-index: 33333;
-    width: 100%;
-    color: var(--blanco);
+    border-radius: 10px;
+    color: var(--text-color2);
     font-size: 20px;
     backdrop-filter: blur(30px);
+    
 }
 .modalText{
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: var(--blanco);
+    border-radius: 20px 20px;
+    margin-top: -2rem;
+    z-index: 2;
+    overflow-y: scroll;
+    height: 40vh;
+    
+}
+.modalText::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    
+   
+}
+ 
+.modalText::-webkit-scrollbar-thumb {
+    background-color: var(--color1);
+    border-radius: 10px;
 }
 .modalText p,h2{
     color: var(--text-color2);
@@ -153,17 +237,18 @@
     display: flex;
     flex-direction: column;
     position: relative;
+   
 }
 .modal-detail{
     top: 0;
     background-color: var(--blanco);
     width: 30%;
-    height: 70vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     border-radius: 10px;
     border: none;
+    overflow: hidden;
 }
 .overlay-detail {
     position: fixed;
@@ -184,19 +269,33 @@
 }
 #swiper_container_Imgs{
     width: 100%;
-    height: 35vh;
+    height: 40vh;
 }
 #swiper_container_Imgs img{
     width: 100%;
-   
     object-fit: cover;
-    
-  
+
 }
 .deFlexCart{
     display: flex;
     gap: 1rem;
     align-items: center;
+}
+.deFlexGoTocart{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: absolute;
+    top: 85vh;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: var(--blanco);
 }
 .deFlexCart button{
     color: var(--blanco);
@@ -206,6 +305,48 @@
     padding: 7px;
     border-radius: 5px;
 }
+
+.categoriSectionSelected{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+    padding-top: 2rem;
+}
+.cardTextSelected{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: space-between;
+}
+.cardTextSelected h4{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 20ch;
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--text-color2);
+}
+.cardTextSelected h5{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 40ch;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--color1);
+}
+.cardTextSelected p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 25ch;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--text-color2);
+}
 @media (max-width: 700px){
     .overlay-detail {
         justify-content: flex-end;
@@ -214,55 +355,97 @@
     }
     .modal-detail{
         width: 100%;
-        height: 100vh;
+        height: 100%;
         border-radius: 0;
 }
     
-    .categoriSection h3{
-        
-        padding: 0px 2% 0;
-        margin-top: 30px;
+    .title{
+        padding: 0px 3% 0;
         font-size: 16px;
     }
     .fixed {
         padding: 0px 2%;
+        background-color: var(--blanco)!important;
       }
+     
       .categoriasInputs input{
-        padding: 10px 15px 8px 15px;
+        padding: 10px 20px 8px ;
         font-size: 14px;
-        background-color: var(--blanco);
+        background-color: var(--gris2);
       }
       
       .categoriasInputs{
         background-color: transparent;
-        padding: 0;
+        padding: 0px 3%;
+        padding-top: 10px;
+        padding-bottom: 0;
+        gap: 10px;
       }
     #swiper_container_products{
         width: 100%;
-        padding: 0px 2% ;
+        padding: 0px 3% ;
       }
     #SwiperSlide-scroll-products{
-        width: 17rem;
-        
+        width: 19rem;
         margin: 0rem 1rem 1rem 0rem;
       }
+
+      #SwiperSlide-scroll-products-masvendidos{
+        width: 10rem;
+        margin: 0rem 1rem 1rem 0rem;
+      }
+      #swiper_container_Imgs{
+        height: 20rem;
+    }
+
+      .cardProdcutmasVendido{
+        width: 10rem;
+        height: 12rem;
+    }
+    .cardProdcutSelected  img{
+        width: 5rem;
+        height: 5rem;
+    }
+    .categoriSectionSelected{
+        gap: 1rem;
+        padding: 2%;
+        flex-wrap:initial;
+        flex-direction: column;
+        width: 100%;
+       
+    }
+    .cardProdcutSelected{
+        width: 100%;
+        height: 7.5rem;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        border-bottom: 1px solid var(--gris2);
+        align-items: center;
+}
+    .cardProdcutmasVendido img{
+        height: 6rem;
+        height: 6rem;
+    }
     .ProductsContain{
         padding: 10px 0%;
     }
     .cardProdcut{
         flex-direction: row;
-        width: 17rem;
+        width: 19rem;
         height: auto;
-        height: 7rem;
+        height: 6rem;
     }
 
     .cardProdcut img{
-        width: 40%;
-        height: 7rem;
+        width: 6rem;
+        height: 6rem;
         object-fit: cover;
+        
     }
     .cardText h4{
         max-width: 15ch;
+        font-size: 16px;
     }
     .cardText h5{
       
@@ -271,14 +454,20 @@
     }
     .cardText p{
       
-        max-width: 15ch;
+        max-width: 20ch;
     }
     
     .Products{
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-        margin-top: -4rem;
+       padding: 0;
+       padding-top: 10px;
+    }
+    .modalText{
+        
+       
+        
     }
     
 }

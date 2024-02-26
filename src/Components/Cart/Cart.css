@@ -13,7 +13,20 @@
     
 }
 
-
+.modal-send-form{
+    background-color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 1rem;
+}
+.modal-send-form input,textarea {
+    background-color: var(--gris2);
+    border-radius: 6px;
+    padding: 13px;
+    border: none;
+   
+}
 .overlay-cart {
     position: fixed;
     top: 0;
@@ -30,7 +43,7 @@
 .modal-content-cart {
     width: 100%;
     overflow-y: scroll;
-    min-height: 80vh;
+    min-height: 70vh;
     padding: 10px;
    
     
@@ -54,8 +67,10 @@
     gap: 10px;
     margin-bottom: 1rem;
     position: relative;
-    border: 1px solid #ebe8e8;
+    align-items: center;
     border-radius: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gris2);
 }
 .deleteToCart{
     background-color: var(--color1);
@@ -67,17 +82,18 @@
 .deleteCart{
     margin-left: 95%;
     margin-right: 0;
-    margin-top: 8px;
+    margin-top: -25px;
     position: absolute;
     cursor: pointer;
-    color: var(--text-color2);
+    color: var(--color1);
     font-weight: 500;
     background-color: transparent;
     border: none;
+    font-size: 20px;
 }
 .cardProductCart img{
-    width: 80px;
-    height: 80px;
+    width: 5rem;
+    height: 5rem;
     border-radius: 15px;
     object-fit: cover;
 }
@@ -86,9 +102,7 @@
     flex-direction: column;
     width: 60%;
 }
-.cardProductCartText{
 
-}
 .cardProductCartText h3{
     white-space: nowrap;
     overflow: hidden;
@@ -100,6 +114,7 @@
 }
 .cardProductCartText p{
     color: var(--text-color2);
+    font-size: 15px;
 }
 .deFLex{
     display: flex;
@@ -109,20 +124,57 @@
     color: var(--blanco);
     align-items: center;
 }
+.deFLex h4{
+    color: var(--blanco);
+    font-size: 17px;
+    font-weight: 400;
+}
 .deFLex button{
     background-color: transparent;
     border: none;
     color: var(--blanco);
     cursor: pointer;
+    font-size: 17px;
     
 }
-.deColumn{
+.deFLexBtns{
+    display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 2rem;
+}
+.btnWpp{
+    background-color: rgb(30, 184, 30);
+    padding: 11px;
+    color: var(--blanco);
+    border-radius: 60px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 10px;
+}
+.deColumnCart{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 10px;
-   width: 100%;
-   gap: 10px;
+    gap: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.255);
+    background-color: var(--blanco);
+    margin: 0px 20px;
+}
+.btnWpp img{
+    width: 25px;
+}
+.deColumnCart h4{
+    padding-bottom: 10px;
+    color: var(--text-color2);
+    border-bottom: 1px solid var(--text-color2);
 }
 .cartIcon{
     color: var(--color1);
@@ -133,13 +185,20 @@
 }
 .btn{
     background-color: var(--color1);
-    padding: 10px;
+    padding: 15px;
     color: var(--blanco);
-    border-radius: 10px;
+    border-radius: 60px;
     border: none;
-    margin-bottom: 1rem;
     cursor: pointer;
+    width: 100%;
+   
 }
+.nohay{
+    text-align: center;
+    padding-top: 5rem;
+    color: var(--text-color2);
+}
+
 @media (max-width: 900px) {
     .modal-cart {
         width: 100%;

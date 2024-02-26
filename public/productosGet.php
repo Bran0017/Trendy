@@ -26,7 +26,7 @@ try {
 
     // Consulta SQL para obtener todos los productos
     if ($metodo == 'GET') {
-        $sqlSelect = "SELECT idProducto, imagen1, imagen2,imagen3,imagen4,  titulo,descripcion, categoria, precio, createdAt FROM productos";
+        $sqlSelect = "SELECT idProducto, imagen1, imagen2,imagen3,imagen4,  titulo,descripcion, categoria, precio, createdAt,masVendido FROM productos";
         $sentencia = $conexion->prepare($sqlSelect);
 
         if ($sentencia->execute()) {
