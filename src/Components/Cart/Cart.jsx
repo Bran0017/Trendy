@@ -178,12 +178,9 @@ Precio: $${item.precio}\n`
                         <div className='deColumnCart'>
                             <h4>Total: ${totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h4>
                             <div className='deFLexBtns'>
-                                <button className='btn'>
-                                    Realizar pedido
-                                </button>
 
                                 <button className='btnWpp' onClick={openModal2}>
-                                    Pedir por <img src={whatsappIcon} alt="WhatsApp" />
+                                    Pedir por  WhatsApp<img src={whatsappIcon} alt="WhatsApp" />
                                 </button>
 
                             </div>

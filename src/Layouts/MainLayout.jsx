@@ -4,7 +4,7 @@ export default function MainLayout() {
 
 
     return (
-        <div className='section-bg-color'>
+        <div >
 
 
             <Outlet />

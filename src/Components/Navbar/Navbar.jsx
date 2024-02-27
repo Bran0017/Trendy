@@ -35,7 +35,7 @@ export default function Navbar() {
     return (
         <header>
             <nav>
-                <Anchor to={`/demo`} className='logo'>
+                <Anchor to={`/`} className='logo'>
                     <img src={logo} alt="Efecto vial Web logo" />
                 </Anchor>
 
