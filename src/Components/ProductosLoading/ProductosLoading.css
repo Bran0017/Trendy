@@ -1,0 +1,51 @@
+.loadingContain{
+    padding: 20px 0%;
+   
+}
+.cardsLoading{
+    display: flex;
+    overflow: hidden;
+    gap: 2rem;
+}
+.cardLoading{
+    width: 13rem;
+    height: 14rem;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 20px;
+     background: linear-gradient(90deg, #e8e6e6, #fff, #fff);
+     background-size: 400% 400%;
+     animation: gradientMove 1s linear infinite;
+}
+.cardsLoading2{
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    overflow: hidden;
+}
+.cardLoading2{
+    width: 23rem;
+    height: 8rem;
+    border-radius: 20px;
+     background: linear-gradient(90deg, #e8e6e6, #fff, #fff);
+     background-size: 400% 400%;
+     animation: gradientMove 1s linear infinite;
+}
+
+
+  @media (max-width: 700px){
+    .cardLoading{
+        width: 10rem;
+        height: 12rem;
+       
+    }
+    .cardLoading2{
+        width: 19rem;
+        height: 6rem;
+      
+    }
+    .loadingContain{
+        padding: 20px 5%;
+       
+    }
+  }

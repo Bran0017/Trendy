@@ -1,33 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Modal from 'react-modal';
 import { Link as Anchor } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../images/logo.png';
-import fondo from '../../images/Fondo.png';
+import baseURL from '../url';
+import 'swiper/swiper-bundle.css';
+import Profile from '../Profile/Profile'
 import './Navbar.css'
+import Cart from '../Cart/Cart'
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        cargarBanners();
+    }, []);
+
+    const cargarBanners = () => {
+        fetch(`${baseURL}/bannersGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                const bannerImages = data.banner.map(banner => banner.imagen);
+                setImages(bannerImages);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error al cargar productos:', error)
+
+            });
+    };
 
     return (
         <header>
             <nav>
-                <Anchor to={`/`} className='logo'>
+                <Anchor to={`/demo`} className='logo'>
                     <img src={logo} alt="Efecto vial Web logo" />
                 </Anchor>
 
-                <div className='enlaces2'>
-                    <Anchor to={`/`} >Inicio</Anchor>
-                    <Anchor to={`/demo`} >Demo</Anchor>
-                </div>
+                <div className='deFLexNav'>
+                    <Cart />
 
-                <div className='deFlexnav'>
                     <div className={`nav_toggle  ${isOpen && "open"}`} onClick={() => setIsOpen(!isOpen)}>
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
                 </div>
+
 
                 <Modal
                     isOpen={isOpen}
@@ -36,14 +57,20 @@ export default function Navbar() {
                     overlayClassName="overlay"
                 >
                     <div className="modal-content">
-                        <Anchor to={`/`} className='fondo'>
-                            <img src={fondo} alt=" Efecto vial Web" />
-                        </Anchor>
+                        {loading ? (
+                            <div className='loadingBanner'>
 
-                        <div className='enlaces'>
-                            <Anchor to={`/`}><FontAwesomeIcon icon={faHome} className='icon' /> Inicio</Anchor>
-                            <Anchor to={`/demo`}><FontAwesomeIcon icon={faHome} className='icon' /> Demo</Anchor>
-                        </div>
+                            </div>
+
+                        ) : (
+
+                            <div className='fondo'>
+                                <img src={images[0]} alt={`imagen`} />
+                                <Profile />
+                            </div>
+
+                        )}
+
                     </div>
                 </Modal>
 

@@ -1,0 +1,16 @@
+
+@media (max-width: 700px){
+    .demo{
+        border-radius: 0 30px 0 0px;
+        background-color: var(--gris);
+       
+    }
+    .section-bg-color{
+        background-color: var(--color1);
+       
+    }
+    .espaciobg{
+        height: 4rem;
+        background-color: var(--blanco);
+    }
+}

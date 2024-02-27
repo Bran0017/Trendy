@@ -1,0 +1,35 @@
+.profileContain{
+    padding: 10px 5%;
+    background-color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 9900000000!important;
+    
+}
+.profileContain img{
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: 100%;
+    margin-top: -3rem;
+ 
+}
+.profileContain h2{
+    font-weight: 500;
+    color: var(--text-color2);
+}
+.socials{
+    display: flex;
+    gap: 2rem;
+}
+.socials a{
+    color: var(--text-color2);
+    font-size: 18px;
+}
+@media (max-width: 700px) {
+    .profileContain{
+        padding: 10px 7%;
+       
+    }
+}

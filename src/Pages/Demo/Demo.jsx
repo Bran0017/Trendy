@@ -1,11 +1,14 @@
 import React from 'react'
 import Banners from '../../Components/Banners/Banners'
 import Products from '../../Components/Products/Products'
+import './Demo.css'
+import Footer from '../../Components/Footer/Footer'
 export default function Demo() {
     return (
-        <div>
+        <section className='demo'>
             <Banners />
             <Products />
-        </div>
+            <Footer />
+        </section>
     )
 }

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import ProductosLoading from '../ProductosLoading/ProductosLoading';
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 export default function Products() {
     const [categorias, setCategorias] = useState([]);
@@ -165,7 +165,7 @@ export default function Products() {
             </div>
             <div>
                 {loading ? (
-                    <div className='loadingBanner'></div>
+                    <ProductosLoading />
                 ) : (
                     <div >
                         {categoriaSeleccionada === 'Todo' && (

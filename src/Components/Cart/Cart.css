@@ -209,4 +209,7 @@
 .modal-content-cart::-webkit-scrollbar-thumb {
     background-color: transparent; 
   }
+  .cartIcon{
+    color: var(--blanco);
+  }
 }

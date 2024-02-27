@@ -1,0 +1,39 @@
+.FooterContain{
+    margin: 0px 10%;
+    padding: 3%;
+    border-radius: 20px 20px 0 0;
+    background-color: var(--color1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.FooterContain a img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
+    
+}
+
+.footerText{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.footerText a{
+
+    color: var(--blanco);
+}
+@media (max-width: 700px){
+    .FooterContain{
+    margin: 0;
+    padding: 20px 4%;
+    border-radius: 20px 20px 0 0;
+    background-color: var(--color1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+}

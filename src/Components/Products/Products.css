@@ -1,6 +1,7 @@
 .ProductsContain{
     padding: 50px 10%;
     width: 100%;
+    min-height: 100vh;
 }
 .Products{
     display: flex;
@@ -433,7 +434,6 @@
     .cardProdcut{
         flex-direction: row;
         width: 19rem;
-        height: auto;
         height: 6rem;
     }
 
