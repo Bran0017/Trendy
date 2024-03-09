@@ -138,16 +138,19 @@ export default function Products() {
             <ToastContainer />
             <div className={`categoriasInputs ${fixedCategories ? 'fixed' : ''}`} ref={categoriasInputRef}>
 
-                <input
-                    type="button"
-                    value="Todo"
-                    onClick={() => handleClickCategoria('Todo')}
-                    style={{
-                        backgroundColor: categoriaSeleccionada === 'Todo' ? '#F80050' : '',
-                        color: categoriaSeleccionada === 'Todo' ? '#fff' : '',
-                        borderBottom: categoriaSeleccionada === 'Todo' ? '2px solid #F80050' : 'none'
-                    }}
-                />
+                {categorias.length > 0 &&
+                    <input
+                        type="button"
+                        value="Todo"
+                        onClick={() => handleClickCategoria('Todo')}
+                        style={{
+                            backgroundColor: categoriaSeleccionada === 'Todo' ? '#F80050' : '',
+                            color: categoriaSeleccionada === 'Todo' ? '#fff' : '',
+                            borderBottom: categoriaSeleccionada === 'Todo' ? '2px solid #F80050' : 'none'
+                        }}
+                    />
+                }
+
 
                 {categorias.map(({ categoria }, index) => (
                     <input

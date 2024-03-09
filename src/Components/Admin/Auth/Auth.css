@@ -1,0 +1,32 @@
+.AuthContainer{
+    padding: 60px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--blanco);
+}
+.AuthContainer img{
+    width: 80px;
+    border-radius: 100%;
+   
+}
+.sinCuenta{
+    background-color: transparent;
+    border: none;
+   
+    text-align: center;
+    color: var(--text-color2);
+    cursor: pointer;
+    margin-top: 2rem;
+    font-size: 17px;
+}
+.sinCuenta span{
+    color: var(--color1);
+    font-size: 18px;
+    margin-left: 10px;
+}
+.logoAtuh{
+    width: 100px;
+}

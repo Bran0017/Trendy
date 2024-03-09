@@ -1,0 +1,22 @@
+.btn-sesion{
+    color: var(--text-color2);
+    text-decoration: none;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background-color: var(--blanco);
+    padding: 10px 20px;
+    border-radius: 10rem;
+    
+}
+.icon{
+    font-size: 13px;
+    background-color: var(--gris2);
+    color: var(--text-color2);
+    padding: 7px;
+    border-radius: 100%;
+    
+}
+.arrow-icon{
+    font-size: 14px;
+}

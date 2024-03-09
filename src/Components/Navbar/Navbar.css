@@ -19,10 +19,11 @@ nav{
     background-color: var(--blanco);
 }
 
-.deFlexnav{
-    display: flex;
+.deFLexNavs{
+    display: flex !important;
+    flex-direction: row !important;
     align-items: center;
-    gap: 1rem;
+    gap: 5rem;
 }
 
 
@@ -76,10 +77,7 @@ nav{
     border-radius: 100%;
 }
 
-.deFLexNav{
-    display: flex;
-    gap: 3rem;
-}
+
 .fondo{
     display: flex;
     flex-direction: column;
@@ -135,7 +133,7 @@ nav{
  }
 
 
-.modal {
+.modalNav {
     top: 0;
     background-color: var(--blanco);
     width: 30%;
@@ -160,17 +158,20 @@ nav{
 }
 
 
-.modal-content {
+.modalNav-content {
     width: 100%;
 }
 
 @media (max-width: 900px) {
-    .modal {
+    .modalNav {
         
         width: 80%;
        
     }
-   
+    .deFLexNavs{
+        display: flex;
+        gap: 3rem;
+    }
     
  .deNone{
     display: none;

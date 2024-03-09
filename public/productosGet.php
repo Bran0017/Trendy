@@ -26,15 +26,14 @@ try {
 
     // Consulta SQL para obtener todos los productos
     if ($metodo == 'GET') {
-        $sqlSelect = "SELECT idProducto, imagen1, imagen2,imagen3,imagen4,  titulo,descripcion, categoria, precio, createdAt,masVendido FROM productos";
+        $sqlSelect = "SELECT idProducto, imagen1, imagen2,imagen3,imagen4,  titulo,descripcion, categoria, precio,masVendido, createdAt FROM productos";
         $sentencia = $conexion->prepare($sqlSelect);
 
         if ($sentencia->execute()) {
             // Obtener resultados
             $resultado = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-            // No convertir imágenes a Base64
-
+        
             // Imprimir datos en formato JSON
             echo json_encode(["productos" => $resultado]);
         } else {

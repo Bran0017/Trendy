@@ -1,0 +1,40 @@
+.table-containerProductos{
+    background-color: var(--blanco);
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.114);
+      width: 100%;
+    min-height: 40vh;
+    max-height: 40vh;
+    border-radius: 10px;
+    padding: 1rem;
+    overflow: auto;
+
+}
+
+.table-containerProductos::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+
+    cursor: pointer;
+    background-color: transparent;
+
+}
+
+.table-containerProductos::-webkit-scrollbar-thumb {
+    background-color: var(--color1);
+    border-radius: 10px;
+   
+}
+.deFlexMore{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.deFlexMore a{
+    color: var(--color1);
+}
+.deFlexMore h3{
+    color: var(--text-color2);
+    font-size: 20px;
+    font-weight: 500;
+}

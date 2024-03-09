@@ -1,0 +1,7 @@
+.FullScreenButton{
+    border: none;
+    color: var(--color1);
+    background-color: transparent;
+    font-size: 18px;
+    cursor: pointer;
+}

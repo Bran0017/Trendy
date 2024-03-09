@@ -26,6 +26,7 @@
 .cardLoading2{
     width: 23rem;
     height: 8rem;
+    margin-right: 2rem;
     border-radius: 20px;
      background: linear-gradient(90deg, #e8e6e6, #fff, #fff);
      background-size: 400% 400%;
@@ -37,15 +38,18 @@
     .cardLoading{
         width: 10rem;
         height: 12rem;
-       
+        margin-right: 1rem;
+    }
+    .cardsLoading{
+        padding-left: 3%;
+    }
+    .cardsLoading2{
+        padding-left: 3%;
     }
     .cardLoading2{
         width: 19rem;
         height: 6rem;
-      
+        margin-right: 1rem;
     }
-    .loadingContain{
-        padding: 20px 5%;
-       
-    }
+    
   }

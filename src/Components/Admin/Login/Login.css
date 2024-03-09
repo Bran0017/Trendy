@@ -1,0 +1,71 @@
+.inputsAuth{
+    display: flex;
+   
+    flex-direction: column;
+    
+   
+}
+.formContain{
+    display: flex;
+    flex-direction: column;
+    width: 50vh;
+}
+.formAuth{
+    display: flex;
+  
+}
+.formContain h2{
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--text-color2);
+    margin-bottom: 2rem;
+}
+.inputsAuth input{
+    border: none;
+    padding: 10px;
+   
+    border-bottom: 1px solid var(--text-color2);
+}
+.inputsAuth label{
+    color: var(--text-color2);;
+    display: none;
+}
+.formAuth{
+    display: flex;
+    width: 1005;
+    flex-direction: column;
+    gap: 1rem;
+}
+.deFlexInputs{
+    display: flex;
+    border: none;
+    padding: 10px 0px;
+    gap: 10px;
+    border-bottom: 1px solid var(--text-color2);
+}
+
+.deFlexInputs input{
+    width: 100%;
+    border: none;
+}
+.deFlexInputs button{
+    border: none;
+    background-color: transparent;
+    color:  var(--text-color2);
+    cursor: pointer;
+}
+.btn {
+    padding: 13px;
+    border: none;
+    border-radius: 30rem;
+    background-color: var(--color1);
+    color: var(--blanco);
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+@media (max-width: 500px){
+    .formContain{
+        width: 100%;
+    }
+}

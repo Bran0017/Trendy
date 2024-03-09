@@ -1,0 +1,28 @@
+.spinnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Ajusta la altura según tus necesidades */
+}
+
+.spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color1);
+}
+
+.spinnerImage {
+   width: 50px;
+   animation: resize 0.7s ease-in-out infinite alternate;
+  
+}
+
+@keyframes resize {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+p {
+    margin-top: 10px; /* Ajusta el espacio entre la imagen y el texto según tus necesidades */
+}

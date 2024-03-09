@@ -1,0 +1,27 @@
+.cartIconFixed{
+    position: fixed;
+    top: 85%;
+    right: 0;
+    left: 90%;
+    background-color: var(--color1);
+    color: var(--blanco);
+    padding: 25px;
+    border-radius: 100%;
+   width: 2.5rem;
+   height:2.5rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border: none;
+   font-size: 17px;
+   z-index: 2;
+}
+@media (max-width: 900px) {
+    .cartIconFixed{
+        position: fixed;
+        top: 90%;
+        right: 0;
+        left: 80%;
+       
+    }
+}

@@ -1,0 +1,89 @@
+.navbarDashboard{
+    background-color: var(--color1);
+    display: flex;
+    flex-direction: column;
+    width: 4rem;
+    min-height:  100vh;
+    max-height: 100%;
+    padding: 20px 0rem 0% 6px;
+  
+    overflow: hidden;
+   
+    transition: width 0.5s;
+  
+    border-radius: 0px 10px 10px 0px;
+    gap: 4rem;
+   
+
+   
+}
+.navbarDashboard:hover {
+    width: 20rem;
+    transition: width 0.5s;
+}
+.navbarDashboard img{
+    width: 2.5rem;
+    padding: 0px ;
+    border-radius: 100%;
+    margin-left: -10px;
+   
+}
+
+.content_tables {
+    transition: height 0.5s, width 0.5s;
+}
+.navbarDashboard a{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+    color: var(--blanco);
+    margin-top: 1rem;
+    padding: 10px 1.1em;
+    border-radius:30px 0px 0px 30px ;
+  
+}
+.navbarDashboard a:hover{
+    background-color: var(--gris);
+    color: var(--color1);
+}
+.navbarDashboard a.active {
+    background-color: var(--gris);
+    color: var(--color1);
+
+}
+.activeLink{
+    background-color:var(--gris);
+    width: 100%;
+    color: var(--color1)!important;
+}
+
+@media (max-width: 1024px) {
+   
+   
+   
+    .navbarDashboard{
+        width: 100%;
+        min-height:  4rem;
+        max-height: 4rem;
+        padding: 20px 0rem 0% 6px;
+        transition: max-height 0.5s;
+        padding: 0px ;
+        border-radius: 0;
+        
+}
+    .navbarDashboard:hover {
+        width: 100%;
+        max-height: 70vh;
+        transition: max-height 0.5s;
+        
+}
+.navbarDashboard a{
+   
+    margin-top: 0;
+    margin-bottom: 1rem;
+    
+  
+}
+}
+

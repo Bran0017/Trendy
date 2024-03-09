@@ -1,0 +1,8 @@
+.deFlexPass{
+    display: flex;
+    width: 100%;
+}
+.deFlexPass button{
+    background-color: transparent;
+    border: none;
+}

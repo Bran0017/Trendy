@@ -1,0 +1,70 @@
+#crearForm{
+    display: flex;
+    flex-direction: column;
+   
+    gap: 10px;
+  
+}
+#crearForm input, select{
+    padding: 5px 10px;
+    border: none;
+    width: 100%;
+}
+
+.flexGrap{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+
+.deFlexBack{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+   
+}
+.deFlexBack h4{
+    color: var(--text-color2);
+}
+
+.previevCategori{
+    display: flex;
+    gap: 10px;
+    overflow-x: scroll;
+     margin-top: 1rem;
+     padding-bottom: 10px;
+}
+.previevCategori::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+ 
+    cursor: pointer;
+    background-color: transparent;
+   
+}
+ 
+.previevCategori::-webkit-scrollbar-thumb {
+    background-color: var(--color1); 
+    border-radius: 10px;
+    margin-top: 3rem;
+  }
+
+  .previevCategori img{
+    width: 250px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+    
+   
+  }
+@media (max-width: 824px){
+    #crearForm{
+        flex-direction: column;
+        flex-wrap: nowrap;
+        
+    }
+}

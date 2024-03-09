@@ -16,6 +16,23 @@ export default function Cart() {
     const [noteText, setNoteText] = useState('');
     const [location, setLocation] = useState('');
     const [name, setName] = useState('');
+    const [contactos, setContactos] = useState([]);
+    useEffect(() => {
+        cargarContacto();
+
+    }, []);
+
+
+    const cargarContacto = () => {
+        fetch(`${baseURL}/contactoGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                setContactos(data.contacto.reverse()[0] || []);
+            })
+            .catch(error => console.error('Error al cargar contactos:', error));
+    };
     useEffect(() => {
         cargarProductos();
     }, [isFocused]);
@@ -102,7 +119,7 @@ export default function Cart() {
         localStorage.removeItem('cart');
     };
     const handleWhatsappMessage = () => {
-        const phoneNumber = '3875683101'; // Reemplaza con el número de teléfono al que deseas enviar el mensaje
+        const phoneNumber = `${contactos.telefono}`; // Reemplaza con el número de teléfono al que deseas enviar el mensaje
 
         const cartDetails = cartItems.map((item) => (
             `\n*${item.titulo}* - Cantidad: ${item.cantidad}
@@ -132,7 +149,6 @@ Precio: $${item.precio}\n`
         setLocation('')
         setNoteText('')
     };
-
 
     return (
         <div>

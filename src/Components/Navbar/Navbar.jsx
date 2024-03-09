@@ -7,6 +7,8 @@ import 'swiper/swiper-bundle.css';
 import Profile from '../Profile/Profile'
 import './Navbar.css'
 import Cart from '../Cart/Cart'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [images, setImages] = useState([]);
@@ -39,7 +41,11 @@ export default function Navbar() {
                     <img src={logo} alt="Efecto vial Web logo" />
                 </Anchor>
 
-                <div className='deFLexNav'>
+                <div className='deFLexNavs'>
+                    <Anchor to={`/dashboard`} >
+                        <FontAwesomeIcon icon={faUser} className='cartIcon' />
+                    </Anchor>
+
                     <Cart />
 
                     <div className={`nav_toggle  ${isOpen && "open"}`} onClick={() => setIsOpen(!isOpen)}>
@@ -53,10 +59,10 @@ export default function Navbar() {
                 <Modal
                     isOpen={isOpen}
                     onRequestClose={() => setIsOpen(false)}
-                    className="modal"
+                    className="modalNav"
                     overlayClassName="overlay"
                 >
-                    <div className="modal-content">
+                    <div className="modalNav-content">
                         {loading ? (
                             <div className='loadingBanner'>
 

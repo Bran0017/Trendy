@@ -20,12 +20,17 @@
     padding: 20px;
     gap: 1rem;
 }
-.modal-send-form input,textarea {
+.modal-send-form textarea {
     background-color: var(--gris2);
     border-radius: 6px;
     padding: 13px;
     border: none;
-   
+}
+.modal-send-form input {
+    background-color: var(--gris2);
+    border-radius: 6px;
+    padding: 13px;
+    border: none;
 }
 .overlay-cart {
     position: fixed;
