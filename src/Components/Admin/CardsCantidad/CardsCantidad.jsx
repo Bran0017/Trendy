@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './CardsCantidad.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faBook, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faBook, faImage, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link as Anchor } from "react-router-dom";
 import baseURL from '../../url';
 export default function CardsCantidad() {
     const [productos, setProductos] = useState([]);
     const [usuarios, setUsuarios] = useState([]);
     const [banners, setBanners] = useState([]);
+    const [categorias, setCategoras] = useState([]);
     useEffect(() => {
         cargarProductos();
         cargarUsuarios();
         cargarBanners();
-
+        cargarCategoria();
     }, []);
 
     const cargarProductos = () => {
@@ -50,6 +51,18 @@ export default function CardsCantidad() {
             .catch(error => console.error('Error al cargar banners:', error));
     };
 
+
+    const cargarCategoria = () => {
+        fetch(`${baseURL}/categoriasGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                setCategoras(data.categorias || []);
+                console.log(data.categorias)
+            })
+            .catch(error => console.error('Error al cargar contactos:', error));
+    };
     return (
         <div className='CardsCantidad'>
 
@@ -80,7 +93,15 @@ export default function CardsCantidad() {
                 </div>
 
             </Anchor>
+            <Anchor to={`/dashboard/categorias`} className='cardCantidad' >
+                <FontAwesomeIcon icon={faTachometerAlt} className='icons' />
+                <div className='deColumn'>
 
+                    <h3>Categorias</h3>
+                    <h2>{categorias.length}</h2>
+                </div>
+
+            </Anchor>
 
         </div>
     )

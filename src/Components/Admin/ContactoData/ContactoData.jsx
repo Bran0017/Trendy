@@ -238,7 +238,7 @@ export default function ContactoData() {
                             <th>Instagram</th>
                             <th>Email</th>
                             <th>Direccion</th>
-                            <th>Loclidad</th>
+                            <th>Localidad</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>

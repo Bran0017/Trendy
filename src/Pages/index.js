@@ -6,6 +6,7 @@ import Usuarios from '../Pages/Usuarios/Usuarios'
 import Banners from "./Banners/Banners";
 import Main from "./Main/Main";
 import Contacto from "./Contacto/Contacto";
+import Categorias from "./Categorias/Categorias";
 export const router = createBrowserRouter([
 
     {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path: `/dashboard/contacto`,
                 element: <Contacto />,
+            },
+            {
+                path: `/dashboard/categorias`,
+                element: <Categorias />,
             },
         ],
     },

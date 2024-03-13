@@ -19,6 +19,7 @@ export default function NewProduct() {
     const [isImage3Selected, setIsImage3Selected] = useState(false);
     const [isImage4Selected, setIsImage4Selected] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+    const [categorias, setCategoras] = useState([]);
     const toggleModal = () => {
         setModalOpen(!modalOpen);
     };
@@ -98,6 +99,24 @@ export default function NewProduct() {
     const handleMasVendidoChange = (e) => {
         setMasVendido(e.target.value);
     };
+
+    useEffect(() => {
+        cargarCategoria();
+
+    }, []);
+
+
+    const cargarCategoria = () => {
+        fetch(`${baseURL}/categoriasGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                setCategoras(data.categorias || []);
+                console.log(data.categorias)
+            })
+            .catch(error => console.error('Error al cargar contactos:', error));
+    };
     return (
         <div className='NewContain'>
             <ToastContainer />
@@ -108,7 +127,7 @@ export default function NewProduct() {
                 <div className="modal">
                     <div className="modal-content">
                         <div className='deFlexBack'>
-                            <h4>Agregar nueva Producto</h4>
+                            <h4>Agregar Producto</h4>
                             <span className="close" onClick={toggleModal}>&times;</span>
                         </div>
                         <form id="crearForm">
@@ -160,17 +179,11 @@ export default function NewProduct() {
                                         onChange={handleCategoriaChange}
                                     >
                                         <option value="">Selecciona una categoría</option>
-                                        <option value="Pizzas">Pizzas</option>
-                                        <option value="Hamburguesas">Hamburguesas</option>
-                                        <option value="Pastas">Pastas</option>
-                                        <option value="Ensaladas">Ensaladas</option>
-                                        <option value="Sopas">Sopas</option>
-                                        <option value="Sándwiches">Sándwiches</option>
-                                        <option value="Platos Principales">Platos Principales</option>
-                                        <option value="Entrantes">Entrantes</option>
-                                        <option value="Desayunos">Desayunos</option>
-                                        <option value="Postres">Postres</option>
-                                        {/* Puedes agregar más categorías según necesites */}
+                                        {
+                                            categorias.map(item => (
+                                                <option value={item?.categoria}>{item?.categoria}</option>
+                                            ))
+                                        }
                                     </select>
                                 </fieldset>
                                 <fieldset>

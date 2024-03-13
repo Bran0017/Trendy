@@ -16,6 +16,7 @@ $servidor = $_ENV['DB_HOST'] . ':' . $_ENV['DB_PORT'];
 $usuario = $_ENV['DB_USER'];
 $contrasena = $_ENV['DB_PASS'];
 $dbname = $_ENV['DB_NAME'];
+$rutaweb = $_ENV['RUTA_WEB'];
 $mensaje = "";
 
 try {
@@ -53,28 +54,28 @@ try {
                     $nombreImagen = $_FILES['imagen1']['name'];
                     $rutaImagen = $carpetaImagenes . '/' . $nombreImagen;
                     move_uploaded_file($_FILES['imagen1']['tmp_name'], $rutaImagen);
-                    $rutaImagenCompleta = 'https://www.faugetdigital.shop/' . $rutaImagen;
+                    $rutaImagenCompleta = $rutaweb . $rutaImagen;
                 }
 
                 if (isset($_FILES['imagen2']) && $_FILES['imagen2']['error'] === UPLOAD_ERR_OK) {
                     $nombreImagen2 = $_FILES['imagen2']['name'];
                     $rutaImagen2 = $carpetaImagenes . '/' . $nombreImagen2;
                     move_uploaded_file($_FILES['imagen2']['tmp_name'], $rutaImagen2);
-                    $rutaImagen2Completa = 'https://www.faugetdigital.shop/' . $rutaImagen2;
+                    $rutaImagen2Completa = $rutaweb . $rutaImagen2;
                 }
 
                 if (isset($_FILES['imagen3']) && $_FILES['imagen3']['error'] === UPLOAD_ERR_OK) {
                     $nombreImagen3 = $_FILES['imagen3']['name'];
                     $rutaImagen3 = $carpetaImagenes . '/' . $nombreImagen3;
                     move_uploaded_file($_FILES['imagen3']['tmp_name'], $rutaImagen3);
-                    $rutaImagen3Completa = 'https://www.faugetdigital.shop/' . $rutaImagen3;
+                    $rutaImagen3Completa = $rutaweb . $rutaImagen3;
                 }
 
                 if (isset($_FILES['imagen4']) && $_FILES['imagen4']['error'] === UPLOAD_ERR_OK) {
                     $nombreImagen4 = $_FILES['imagen4']['name'];
                     $rutaImagen4 = $carpetaImagenes . '/' . $nombreImagen4;
                     move_uploaded_file($_FILES['imagen4']['tmp_name'], $rutaImagen4);
-                    $rutaImagen4Completa = 'https://www.faugetdigital.shop/' . $rutaImagen4;
+                    $rutaImagen4Completa = $rutaweb . $rutaImagen4;
                 }
 
                 // Verificar que al menos una imagen esté presente

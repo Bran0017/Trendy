@@ -21,6 +21,7 @@ $servidor = $_ENV['DB_HOST'] . ':' . $_ENV['DB_PORT'];
 $usuario = $_ENV['DB_USER'];
 $contrasena = $_ENV['DB_PASS'];
 $dbname = $_ENV['DB_NAME'];
+$rutaweb = $_ENV['RUTA_WEB'];
 $mensaje = "";
 $carpetaImagenes = '../imagenes_productos'; // Cambia la ruta de la carpeta
 
@@ -44,7 +45,7 @@ try {
             $rutaImagen1 = $carpetaImagenes . '/' . $nombreImagen1;
             
             if (move_uploaded_file($_FILES['imagen1']['tmp_name'], $rutaImagen1)) {
-                $rutaImagen1Completa = 'https://www.faugetdigital.shop/' . $rutaImagen1;
+                $rutaImagen1Completa = $rutaweb . $rutaImagen1;
             } else {
                 echo json_encode(["error" => "Error al mover el archivo de imagen1"]);
                 exit;
@@ -57,7 +58,7 @@ try {
             $rutaImagen2 = $carpetaImagenes . '/' . $nombreImagen2;
             
             if (move_uploaded_file($_FILES['imagen2']['tmp_name'], $rutaImagen2)) {
-                $rutaImagen2Completa = 'https://www.faugetdigital.shop/' . $rutaImagen2;
+                $rutaImagen2Completa = $rutaweb . $rutaImagen2;
             } else {
                 echo json_encode(["error" => "Error al mover el archivo de imagen2"]);
                 exit;
@@ -70,7 +71,7 @@ try {
             $rutaImagen3 = $carpetaImagenes . '/' . $nombreImagen3;
             
             if (move_uploaded_file($_FILES['imagen3']['tmp_name'], $rutaImagen3)) {
-                $rutaImagen3Completa = 'https://www.faugetdigital.shop/' . $rutaImagen3;
+                $rutaImagen3Completa = $rutaweb . $rutaImagen3;
             } else {
                 echo json_encode(["error" => "Error al mover el archivo de imagen3"]);
                 exit;
@@ -83,7 +84,7 @@ try {
             $rutaImagen4 = $carpetaImagenes . '/' . $nombreImagen4;
             
             if (move_uploaded_file($_FILES['imagen4']['tmp_name'], $rutaImagen4)) {
-                $rutaImagen4Completa = 'https://www.faugetdigital.shop/' . $rutaImagen4;
+                $rutaImagen4Completa = $rutaweb . $rutaImagen4;
             } else {
                 echo json_encode(["error" => "Error al mover el archivo de imagen4"]);
                 exit;

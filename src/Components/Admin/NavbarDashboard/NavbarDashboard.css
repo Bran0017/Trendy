@@ -6,13 +6,13 @@
     min-height:  100vh;
     max-height: 100%;
     padding: 20px 0rem 0% 6px;
-  
+
     overflow: hidden;
    
     transition: width 0.5s;
   
     border-radius: 0px 10px 10px 0px;
-    gap: 4rem;
+    gap: 2rem;
    
 
    

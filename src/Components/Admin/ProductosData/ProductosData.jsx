@@ -23,6 +23,7 @@ export default function ProductosData() {
     const [filtroId, setFiltroId] = useState('');
     const [filtroTitulo, setFiltroTitulo] = useState('');
     const [filtroCategoria, setFiltroCategoria] = useState('');
+    const [filtroCategoria2, setFiltroCategoria2] = useState('');
     const [filtroMasVendido, setFiltroMasVendido] = useState('');
     const [ordenInvertido, setOrdenInvertido] = useState(false);
     const [imagenPreview, setImagenPreview] = useState(null);
@@ -35,6 +36,7 @@ export default function ProductosData() {
     const [nuevaImagen4, setNuevaImagen4] = useState(null);
     const [selectedSection, setSelectedSection] = useState('texto');
     const [nuevoMasVendido, setNuevoMasVendido] = useState('');
+    const [categorias, setCategoras] = useState([]);
 
 
     const cerrarModalImagen = () => {
@@ -121,7 +123,8 @@ export default function ProductosData() {
         const tituloMatch = !filtroTitulo || item.titulo.includes(filtroTitulo);
         const categoriaMatch = !filtroCategoria || item.categoria.includes(filtroCategoria);
         const masVendidoMatch = !filtroMasVendido || item.masVendido.includes(filtroMasVendido);
-        return idMatch && tituloMatch && categoriaMatch && masVendidoMatch;
+        const categoriasMatch = !filtroCategoria2 || item.categoria.includes(filtroCategoria2);
+        return idMatch && tituloMatch && categoriaMatch && masVendidoMatch && categoriasMatch;
     });
 
     const descargarExcel = () => {
@@ -291,6 +294,24 @@ export default function ProductosData() {
     const handleSectionChange = (section) => {
         setSelectedSection(section);
     };
+
+    useEffect(() => {
+        cargarCategoria();
+
+    }, []);
+
+
+    const cargarCategoria = () => {
+        fetch(`${baseURL}/categoriasGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                setCategoras(data.categorias || []);
+                console.log(data.categorias)
+            })
+            .catch(error => console.error('Error al cargar contactos:', error));
+    };
     return (
         <div>
 
@@ -311,18 +332,16 @@ export default function ProductosData() {
                         <input type="text" value={filtroTitulo} onChange={(e) => setFiltroTitulo(e.target.value)} placeholder='Titulo' />
                     </div>
                     <div className='inputsColumn'>
+                        <input type="text" value={filtroCategoria2} onChange={(e) => setFiltroCategoria2(e.target.value)} placeholder='Categoria' />
+                    </div>
+                    <div className='inputsColumn'>
                         <select value={filtroCategoria} onChange={(e) => setFiltroCategoria(e.target.value)}>
                             <option value="">Categorias</option>
-                            <option value="Pizzas">Pizzas</option>
-                            <option value="Hamburguesas">Hamburguesas</option>
-                            <option value="Pastas">Pastas</option>
-                            <option value="Ensaladas">Ensaladas</option>
-                            <option value="Sopas">Sopas</option>
-                            <option value="Sándwiches">Sándwiches</option>
-                            <option value="Platos Principales">Platos Principales</option>
-                            <option value="Entrantes">Entrantes</option>
-                            <option value="Desayunos">Desayunos</option>
-                            <option value="Postres">Postres</option>
+                            {
+                                categorias.map(item => (
+                                    <option value={item?.categoria}>{item?.categoria}</option>
+                                ))
+                            }
 
                         </select>
                     </div>
@@ -416,17 +435,11 @@ export default function ProductosData() {
                                         onChange={(e) => setNuevaCategoria(e.target.value)}
                                     >
                                         <option value={producto.categoria}>{producto.categoria}</option>
-                                        <option value="Pizzas">Pizzas</option>
-                                        <option value="Hamburguesas">Hamburguesas</option>
-                                        <option value="Pastas">Pastas</option>
-                                        <option value="Ensaladas">Ensaladas</option>
-                                        <option value="Sopas">Sopas</option>
-                                        <option value="Sándwiches">Sándwiches</option>
-                                        <option value="Platos Principales">Platos Principales</option>
-                                        <option value="Entrantes">Entrantes</option>
-                                        <option value="Desayunos">Desayunos</option>
-                                        <option value="Postres">Postres</option>
-
+                                        {
+                                            categorias.map(item => (
+                                                <option value={item?.categoria}>{item?.categoria}</option>
+                                            ))
+                                        }
                                     </select>
                                 </fieldset>
                                 <fieldset>

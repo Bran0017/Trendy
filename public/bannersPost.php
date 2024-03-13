@@ -16,6 +16,7 @@ $servidor = $_ENV['DB_HOST'] . ':' . $_ENV['DB_PORT'];
 $usuario = $_ENV['DB_USER'];
 $contrasena = $_ENV['DB_PASS'];
 $dbname = $_ENV['DB_NAME'];
+$rutaweb = $_ENV['RUTA_WEB'];
 $mensaje = "";
 
 try {
@@ -39,7 +40,7 @@ try {
             $nombreImagen = $_FILES['imagen']['name'];
             $rutaImagen = $carpetaImagenes . '/' . $nombreImagen;
             move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaImagen);
-            $rutaImagenCompleta = 'https://www.faugetdigital.shop/' . $rutaImagen;
+            $rutaImagenCompleta = $rutaweb . $rutaImagen;
 
             // Almacenar enlace completo en la base de datos
             $sqlInsert = "INSERT INTO `banner` (imagen) VALUES (:imagen)";
