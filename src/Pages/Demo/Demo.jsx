@@ -4,6 +4,7 @@ import Products from '../../Components/Products/Products'
 import './Demo.css'
 import Footer from '../../Components/Footer/Footer'
 import CartFixed from '../../Components/CartFixed/CartFixed'
+import BtnWhatsapp from '../../Components/BtnWhatsapp/BtnWhatsapp'
 export default function Demo() {
     return (
         <section className='demo'>
@@ -11,6 +12,7 @@ export default function Demo() {
             <Products />
             <Footer />
             <CartFixed />
+            <BtnWhatsapp />
         </section>
     )
 }

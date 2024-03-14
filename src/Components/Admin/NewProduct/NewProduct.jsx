@@ -241,7 +241,7 @@ export default function NewProduct() {
                                     />
                                 </fieldset>
                                 <fieldset>
-                                    <legend>Imagen3</legend>
+                                    <legend>Imagen4</legend>
 
                                     <input
                                         type="file"

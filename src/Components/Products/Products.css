@@ -1,7 +1,7 @@
 .ProductsContain{
     padding: 50px 10%;
     width: 100%;
-    min-height: 100vh;
+    min-height: 60vh;
 }
 .Products{
     display: flex;
@@ -133,17 +133,21 @@
     overflow-x: scroll;
     padding-top: 1rem;
     gap: 2rem;
+    padding-bottom: 10px;
   }
   .categoriasInputs::-webkit-scrollbar{
  
     background-color: transparent;
-   
+    width: 5px;
+    height: 5px;
 }
  
 .categoriasInputs::-webkit-scrollbar-thumb {
-    background-color: transparent;
- 
-  }
+    background-color: var(--color1);
+    width: 5px;
+    height: 5px;
+    border-radius: 10px;
+}
   .categoriasInputs input{
     border: none;
     cursor: pointer;
@@ -464,10 +468,14 @@
        padding: 0;
        padding-top: 10px;
     }
-    .modalText{
-        
-       
-        
+    .categoriasInputs::-webkit-scrollbar{
+ 
+        background-color: transparent;
+     
+    }
+     
+    .categoriasInputs::-webkit-scrollbar-thumb {
+        background-color: transparent;
     }
     
 }

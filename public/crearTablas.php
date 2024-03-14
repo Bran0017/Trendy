@@ -76,6 +76,7 @@ try {
     )";
     crearTablaSiNoExiste($conexion, 'productos', $consultaProductos);
 
+
     // Crear tabla 'usuarios' si no existe
     $consultaUsuarios = "CREATE TABLE IF NOT EXISTS `usuarios` (
         idUsuario INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -88,6 +89,16 @@ try {
     crearTablaSiNoExiste($conexion, 'usuarios', $consultaUsuarios);
 
     $contrasenaAdmin = password_hash('admin1234', PASSWORD_DEFAULT);
+
+   // Crear tabla 'codigos' si no existe
+    $consultaCodigos = "CREATE TABLE IF NOT EXISTS `codigos` (
+    idCodigo INT(11) AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(50) NOT NULL,
+    descuento INT(20) DEFAULT 0
+    )";
+    crearTablaSiNoExiste($conexion, 'codigos', $consultaCodigos);
+
+
 
 // Insertar nuevo usuario admin
 $sqlInsertAdmin = "INSERT INTO `usuarios` (nombre, email, contrasena, rol, createdAt) 

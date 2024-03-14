@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './CardsCantidad.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faBook, faImage, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faBook, faImage, faAddressBook, faTachometerAlt, faCode } from '@fortawesome/free-solid-svg-icons';
 import { Link as Anchor } from "react-router-dom";
 import baseURL from '../../url';
 export default function CardsCantidad() {
@@ -9,11 +9,17 @@ export default function CardsCantidad() {
     const [usuarios, setUsuarios] = useState([]);
     const [banners, setBanners] = useState([]);
     const [categorias, setCategoras] = useState([]);
+    const [contactos, setContactos] = useState([]);
+    const [codigos, setCodigos] = useState([]);
+
+
     useEffect(() => {
         cargarProductos();
         cargarUsuarios();
         cargarBanners();
         cargarCategoria();
+        cargarContacto();
+        cargarCodigos();
     }, []);
 
     const cargarProductos = () => {
@@ -63,6 +69,28 @@ export default function CardsCantidad() {
             })
             .catch(error => console.error('Error al cargar contactos:', error));
     };
+    const cargarContacto = () => {
+        fetch(`${baseURL}/contactoGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                setContactos(data.contacto || []);
+                console.log(data.contacto)
+            })
+            .catch(error => console.error('Error al cargar contactos:', error));
+    };
+
+    const cargarCodigos = () => {
+        fetch(`${baseURL}/codigosGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                setCodigos(data.codigos || []);
+            })
+            .catch(error => console.error('Error al cargar códigos:', error));
+    };
     return (
         <div className='CardsCantidad'>
 
@@ -99,6 +127,22 @@ export default function CardsCantidad() {
 
                     <h3>Categorias</h3>
                     <h2>{categorias.length}</h2>
+                </div>
+
+            </Anchor>
+            <Anchor to={`/dashboard/contacto`} className='cardCantidad' >
+                <FontAwesomeIcon icon={faAddressBook} className='icons' />
+                <div className='deColumn'>
+                    <h3>Contactos</h3>
+                    <h2>{contactos.length}</h2>
+                </div>
+
+            </Anchor>
+            <Anchor to={`/dashboard/codigos`} className='cardCantidad' >
+                <FontAwesomeIcon icon={faCode} className='icons' />
+                <div className='deColumn'>
+                    <h3>Codigos</h3>
+                    <h2>{codigos.length}</h2>
                 </div>
 
             </Anchor>

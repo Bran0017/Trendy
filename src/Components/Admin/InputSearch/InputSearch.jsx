@@ -11,7 +11,8 @@ export default function InputSearch() {
         { title: 'Banners', link: '/dashboard/banners' },
         { title: 'Usuarios', link: '/dashboard/usuarios' },
         { title: 'Contacto', link: '/dashboard/contacto' },
-
+        { title: 'Categorias', link: '/dashboard/categorias' },
+        { title: 'Codigos', link: '/dashboard/codigos' },
     ];
 
 

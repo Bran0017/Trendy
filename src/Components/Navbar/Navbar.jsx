@@ -38,7 +38,7 @@ export default function Navbar() {
         <header>
             <nav>
                 <Anchor to={`/`} className='logo'>
-                    <img src={logo} alt="Efecto vial Web logo" />
+                    <img src={logo} alt="logo" />
                 </Anchor>
 
                 <div className='deFLexNavs'>

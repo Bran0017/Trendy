@@ -7,6 +7,8 @@ import Banners from "./Banners/Banners";
 import Main from "./Main/Main";
 import Contacto from "./Contacto/Contacto";
 import Categorias from "./Categorias/Categorias";
+import Codigos from "./Codigos/Codigos";
+
 export const router = createBrowserRouter([
 
     {
@@ -41,6 +43,10 @@ export const router = createBrowserRouter([
             {
                 path: `/dashboard/categorias`,
                 element: <Categorias />,
+            },
+            {
+                path: `/dashboard/codigos`,
+                element: <Codigos />,
             },
         ],
     },
