@@ -49,7 +49,7 @@ try {
 
         if ($sentenciaDelete->execute()) {
             // Eliminar archivos de la carpeta imagenes_productos
-            $carpetaImagenes = '../imagenes_productos/';
+            $carpetaImagenes = './imagenes_productos/';
             foreach ($imagenes as $imagen) {
                 if ($imagen) {
                     $rutaImagen = $carpetaImagenes . basename($imagen);

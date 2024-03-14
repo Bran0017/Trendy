@@ -23,7 +23,7 @@ $contrasena = $_ENV['DB_PASS'];
 $dbname = $_ENV['DB_NAME'];
 $rutaweb = $_ENV['RUTA_WEB'];
 $mensaje = "";
-$carpetaImagenes = '../imagenes_productos'; // Cambia la ruta de la carpeta
+$carpetaImagenes = './imagenes_productos'; // Cambia la ruta de la carpeta
 
 try {
     $dsn = "mysql:host=$servidor;dbname=$dbname";

@@ -90,7 +90,11 @@ export default function UsuariosData() {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        toast.success(data.mensaje);
+                        Swal.fire(
+                            'Editado!',
+                            data.mensaje,
+                            'success'
+                        );
                         cargarUsuarios();
                     })
                     .catch(error => {

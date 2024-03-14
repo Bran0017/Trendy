@@ -38,7 +38,7 @@ try {
             if ($imagenesPresentes) {
 
                 // Crear carpeta para imágenes si no existe
-                $carpetaImagenes = '../imagenes_productos';
+                $carpetaImagenes = './imagenes_productos';
                 if (!file_exists($carpetaImagenes)) {
                     mkdir($carpetaImagenes, 0777, true);
                 }

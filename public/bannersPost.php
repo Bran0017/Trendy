@@ -28,7 +28,7 @@ try {
         // Verificar si se envió la imagen
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             // Crear carpeta para imágenes si no existe
-            $carpetaImagenes = '../imagenes_banners';
+            $carpetaImagenes = './imagenes_banners';
             if (!file_exists($carpetaImagenes)) {
                 mkdir($carpetaImagenes, 0777, true);
             }

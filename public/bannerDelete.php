@@ -50,7 +50,7 @@ try {
 
         if ($sentenciaDelete->execute()) {
             // Eliminar archivo de la carpeta imagenes_banners
-            $carpetaImagenes = '../imagenes_banners/';
+            $carpetaImagenes = './imagenes_banners/';
             if ($imagen && file_exists($carpetaImagenes . basename($imagen))) {
                 unlink($carpetaImagenes . basename($imagen));
             }

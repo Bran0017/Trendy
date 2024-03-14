@@ -41,7 +41,7 @@
     flex-direction: column;
     overflow: hidden;
     width: 13rem;
-    height: 14rem;
+    height: 15rem;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.073);
     background-color: var(--blanco);
@@ -95,7 +95,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 40ch;
+    max-width: 20ch;
     font-weight: 500;
     font-size: 19px;
     color: var(--text-color2);
