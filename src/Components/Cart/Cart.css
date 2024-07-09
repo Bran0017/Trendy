@@ -76,6 +76,7 @@
     border-radius: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--gris2);
+    justify-content: space-around;
 }
 .deleteToCart{
     background-color: var(--color1);
@@ -85,16 +86,14 @@
     cursor: pointer;
 }
 .deleteCart{
-    margin-left: 95%;
-    margin-right: 0;
-    margin-top: -25px;
-    position: absolute;
+   
     cursor: pointer;
     color: var(--color1);
     font-weight: 500;
     background-color: transparent;
     border: none;
-    font-size: 20px;
+    font-size: 17px;
+    text-align: right;
 }
 .cardProductCart img{
     width: 5rem;
@@ -105,14 +104,16 @@
 .cardProductCartText{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    justify-content: space-around;
+    gap: 7px;
+    width: 50%;
 }
 
 .cardProductCartText h3{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 40ch;
+    max-width: 20ch;
     font-weight: 500;
     font-size: 16px;
     color: var(--text-color2);
@@ -123,7 +124,7 @@
 }
 .cardProductCartText strong{
     color: var(--text-color2);
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
 }
 .deFLex{
@@ -230,13 +231,14 @@
  
 }
 .cartIconFixed span{
-    background-color: rgb(247, 11, 11);
-    padding: 5px 8px;
+    background-color: red;
+    padding: 4px 7px;
     border-radius: 100%;
     font-size: 12px;
    position: absolute;
    margin-top: -15px;
    margin-left: 1rem;
+   color: var(--blanco);
 }
 .deFLexRadio{
     display: flex;
@@ -254,6 +256,24 @@
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+.deFlexCantidad{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.deFlexCantidad button{
+    color: var(--blanco);
+    background-color: var(--color1);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 3px 6px;
+}
+.deFlexCantidad span{
+    font-weight: 600;
 }
 
 @media (max-width: 900px) {

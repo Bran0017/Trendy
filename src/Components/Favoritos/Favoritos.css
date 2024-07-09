@@ -1,20 +1,12 @@
 .deleteFav{
 
-    margin-left: 55vh;
-    margin-top: 20px;
-    position: absolute;
     cursor: pointer;
     color: red;
     font-weight: 500;
     background-color: transparent;
     border: none;
-    font-size: 20px;
-    z-index: 1;
+    font-size: 17px;
 }
 @media (max-width: 1024px) {
-    .deleteFav{
-
-        margin-left: 40vh;
-      
-    }
+    
 }

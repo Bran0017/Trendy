@@ -182,9 +182,9 @@ export default function Products() {
                         value="Todo"
                         onClick={() => handleClickCategoria('Todo')}
                         style={{
-                            backgroundColor: categoriaSeleccionada === 'Todo' ? '#0074E4' : '',
+                            backgroundColor: categoriaSeleccionada === 'Todo' ? '#0c71cf' : '',
                             color: categoriaSeleccionada === 'Todo' ? '#fff' : '',
-                            borderBottom: categoriaSeleccionada === 'Todo' ? '2px solid #0074E4' : 'none'
+                            borderBottom: categoriaSeleccionada === 'Todo' ? '2px solid #0c71cf' : 'none'
                         }}
                     />
                 }
@@ -197,9 +197,9 @@ export default function Products() {
                         value={categoria}
                         onClick={() => handleClickCategoria(categoria)}
                         style={{
-                            backgroundColor: categoriaSeleccionada === categoria ? '#0074E4' : '',
+                            backgroundColor: categoriaSeleccionada === categoria ? '#0c71cf' : '',
                             color: categoriaSeleccionada === categoria ? '#fff' : '',
-                            borderBottom: categoriaSeleccionada === categoria ? '2px solid #0074E4' : 'none'
+                            borderBottom: categoriaSeleccionada === categoria ? '2px solid #0c71cf' : 'none'
                         }}
                     />
                 ))}
@@ -220,6 +220,7 @@ export default function Products() {
                                             grabCursor={true}
                                             slidesPerView={'auto'}
                                             id='swiper_container_products'
+                                            autoplay={{ delay: 3000 }}
                                         >
                                             {productos.filter(item => item.masVendido === "si").map(item => (
                                                 <SwiperSlide id='SwiperSlide-scroll-products-masvendidos' key={item.idProducto}>
@@ -228,9 +229,9 @@ export default function Products() {
                                                         <h6 className='masVendido'>Más Vendido</h6>
                                                         <div className='cardText'>
                                                             <h4>{item.titulo}</h4>
-                                                            <p>{item.descripcion}</p>
+                                                            <span>{item.descripcion}</span>
                                                             <div className='deFLexPrice'>
-                                                                <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                                <h5> ${String(item?.precio)?.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
                                                                 {
                                                                     (item.precioAnterior !== 0 && item.precioAnterior !== undefined) && (
                                                                         <h5 className='precioTachado'>${`${item?.precioAnterior}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
@@ -251,7 +252,16 @@ export default function Products() {
                                 {categorias.map(({ categoria, productos }, index) => (
                                     <div key={categoria} className='categoriSection' ref={ref => categoriasRefs.current[index] = ref}>
 
-                                        <h3 className='title'>{categoria}</h3>
+                                        <div className='deFlexTitlesection'>
+                                            <h3 >{categoria}</h3>
+                                            <button onClick={() => {
+                                                handleClickCategoria(categoria);
+                                                document.querySelector('.categoriSection').scrollIntoView({ behavior: 'smooth' });
+                                            }}>
+                                                Ver más
+                                            </button>
+                                        </div>
+
                                         <Swiper
                                             effect={'coverflow'}
                                             grabCursor={true}
@@ -264,9 +274,9 @@ export default function Products() {
                                                         <img src={obtenerImagen(item)} alt="imagen" />
                                                         <div className='cardText'>
                                                             <h4>{item.titulo}</h4>
-                                                            <p>{item.descripcion}</p>
+                                                            <span>{item.descripcion}</span>
                                                             <div className='deFLexPrice'>
-                                                                <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                                <h5> ${String(item?.precio)?.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
                                                                 {
                                                                     (item.precioAnterior !== 0 && item.precioAnterior !== undefined) && (
                                                                         <h5 className='precioTachado'>${`${item?.precioAnterior}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
@@ -298,9 +308,9 @@ export default function Products() {
                                             <img src={obtenerImagen(item)} alt="imagen" />
                                             <div className='cardTextSelected'>
                                                 <h4>{item.titulo}</h4>
-                                                <p>{item.descripcion}</p>
+                                                <span>{item.descripcion}</span>
                                                 <div className='deFLexPrice'>
-                                                    <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                    <h5> ${String(item?.precio)?.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
                                                     {
                                                         (item.precioAnterior !== 0 && item.precioAnterior !== undefined) && (
                                                             <h5 className='precioTachado'>${`${item?.precioAnterior}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>

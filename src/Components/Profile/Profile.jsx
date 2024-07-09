@@ -28,12 +28,17 @@ export default function Profile() {
         <div className='profileContain'>
             <img src={logo} alt="" />
             <h2>{contactos.nombre}</h2>
+
             <div className='socials'>
                 <Anchor to={contactos.instagram} target="_blank"><i className='fa fa-instagram'></i></Anchor>
                 <Anchor to={`tel:${contactos.telefono}`} target="_blank"><i className='fa fa-whatsapp'></i></Anchor>
                 <Anchor to={contactos.facebook} target="_blank"><i className='fa fa-facebook'></i></Anchor>
             </div>
+
             <div className='profileText'>
+                <Anchor to={`/Productos`} >
+                    Productos
+                </Anchor>
                 <Anchor to={`mailto:${contactos.email}`} target="_blank">{contactos.email}</Anchor>
                 <Anchor to={`https://www.google.com/maps?q=${encodeURIComponent(contactos.direccion)}`} target="_blank">{contactos.direccion}</Anchor>
 

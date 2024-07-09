@@ -11,7 +11,7 @@ export default function HeaderBack({ link, title }) {
     };
     return (
         <div className='headerBack'>
-            <div onClick={goBack} className='back'>
+            <div onClick={goBack}>
                 <FontAwesomeIcon icon={faArrowLeft} />
             </div>
             <span>

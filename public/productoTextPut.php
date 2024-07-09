@@ -36,7 +36,7 @@ try {
         $nuevaCategoria = isset($data['nuevaCategoria']) ? $data['nuevaCategoria'] : null;
         $nuevoPrecio = isset($data['nuevoPrecio']) ? $data['nuevoPrecio'] : null;
         $masVendido = isset($data['masVendido']) ? $data['masVendido'] : null; 
-
+        $nuevaSubCategoria = isset($data['nuevaSubCategoria']) ? $data['nuevaSubCategoria'] : null;
          // Agregar campos del 1 al 15 como items
          $item1 = isset($data['item1']) ? $data['item1'] : null;
          $item2 = isset($data['item2']) ? $data['item2'] : null;
@@ -49,6 +49,7 @@ try {
          $item9 = isset($data['item9']) ? $data['item9'] : null;
          $item10 = isset($data['item10']) ? $data['item10'] : null;
          $precioAnterior = isset($data['precioAnterior']) ? $data['precioAnterior'] : null;
+         $stock = isset($data['stock']) ? $data['stock'] : null;
  
         if (empty($nuevaCategoria)) {
             $sqlSelect = "SELECT categoria FROM productos WHERE idProducto = :idProducto";
@@ -61,7 +62,7 @@ try {
 
         $sqlUpdate = "UPDATE productos SET descripcion = :descripcion, titulo = :titulo, categoria = :categoria, precio = :precio, masVendido = :masVendido, 
         item1 = :item1, item2 = :item2, item3 = :item3, item4 = :item4, item5 = :item5, item6 = :item6, item7 = :item7, item8 = :item8, 
-        item9 = :item9, item10 = :item10, precioAnterior = :precioAnterior
+        item9 = :item9, item10 = :item10, precioAnterior = :precioAnterior, stock = :stock, subcategoria = :subcategoria
         WHERE idProducto = :idProducto";
         $sentenciaUpdate = $conexion->prepare($sqlUpdate);
         $sentenciaUpdate->bindParam(':descripcion', $nuevaDescripcion);
@@ -80,6 +81,8 @@ try {
         $sentenciaUpdate->bindParam(':item9', $item9); 
         $sentenciaUpdate->bindParam(':item10', $item10);  
         $sentenciaUpdate->bindParam(':precioAnterior', $precioAnterior);  
+        $sentenciaUpdate->bindParam(':stock', $stock);  
+        $sentenciaUpdate->bindParam(':subcategoria', $nuevaSubCategoria); 
         $sentenciaUpdate->bindParam(':idProducto', $idProducto, PDO::PARAM_INT);
 
         if ($sentenciaUpdate->execute()) {

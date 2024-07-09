@@ -10,6 +10,8 @@ import Contacto from "./Contacto/Contacto";
 import Categorias from "./Categorias/Categorias";
 import Codigos from "./Codigos/Codigos";
 import PageDetail from '../Pages/PageDetail/PageDetail';
+import SubCategorias from "./SubCategorias/SubCategorias";
+import PageProductos from "./PageProductos/PageProductos";
 export const router = createBrowserRouter([
 
     {
@@ -24,6 +26,10 @@ export const router = createBrowserRouter([
             {
                 path: `/producto/:idProducto/:producto`,
                 element: <PageDetail />,
+            },
+            {
+                path: `/productos`,
+                element: <PageProductos />,
             },
 
         ]
@@ -55,6 +61,10 @@ export const router = createBrowserRouter([
             {
                 path: `/dashboard/categorias`,
                 element: <Categorias />,
+            },
+            {
+                path: `/dashboard/subcategorias`,
+                element: <SubCategorias />,
             },
             {
                 path: `/dashboard/codigos`,

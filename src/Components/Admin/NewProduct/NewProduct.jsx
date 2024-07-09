@@ -31,6 +31,9 @@ export default function NewProduct() {
     const [item9, setItem9] = useState('');
     const [item10, setItem10] = useState('');
     const [precioAnterior, setPrecioAnterior] = useState('');
+    const [stock, setStock] = useState('');
+    const [subcategorias, setSubCategorias] = useState([]);
+    const [subcategoria, setSubCategoria] = useState([]);
     const toggleModal = () => {
         setModalOpen(!modalOpen);
     };
@@ -110,10 +113,12 @@ export default function NewProduct() {
     const handleMasVendidoChange = (e) => {
         setMasVendido(e.target.value);
     };
-
+    const handleStock = (e) => {
+        setStock(e.target.value);
+    };
     useEffect(() => {
         cargarCategoria();
-
+        cargarSubCategoria()
     }, []);
 
 
@@ -128,6 +133,21 @@ export default function NewProduct() {
             })
             .catch(error => console.error('Error al cargar contactos:', error));
     };
+    const cargarSubCategoria = () => {
+        fetch(`${baseURL}/subCategoriaGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                setSubCategorias(data.subcategorias || []);
+                console.log(data.subcategorias)
+            })
+            .catch(error => console.error('Error al cargar subcategorias:', error));
+    };
+    const handleSubCategoriaChange = (e) => {
+        setSubCategoria(e.target.value);
+    };
+
     return (
         <div className='NewContain'>
             <ToastContainer />
@@ -198,6 +218,22 @@ export default function NewProduct() {
                                     </select>
                                 </fieldset>
                                 <fieldset>
+                                    <legend>Subcategoria</legend>
+                                    <select
+                                        id="subcategoria"
+                                        name="subcategoria"
+                                        value={subcategoria}
+                                        onChange={handleSubCategoriaChange}
+                                    >
+                                        <option value="">Selecciona una subcategoria</option>
+                                        {
+                                            subcategorias.map(item => (
+                                                <option value={item?.subcategoria}>{item?.subcategoria}</option>
+                                            ))
+                                        }
+                                    </select>
+                                </fieldset>
+                                <fieldset>
                                     <legend>Más vendido</legend>
                                     <select
                                         id="masVendido"
@@ -210,6 +246,19 @@ export default function NewProduct() {
                                         <option value="no">No</option>
 
                                     </select>
+                                </fieldset>
+                                <fieldset>
+                                    <legend>Stock</legend>
+                                    <input
+                                        type="number"
+                                        id="stock"
+                                        name="stock"
+                                        min="0"
+                                        step="0.01"
+                                        required
+                                        value={stock}
+                                        onChange={(e) => setStock(e.target.value)}
+                                    />
                                 </fieldset>
                                 <fieldset>
                                     <legend>Precio anterior</legend>
@@ -413,7 +462,7 @@ export default function NewProduct() {
                                     {mensaje}
                                 </button>
                             ) : (
-                                <button type="button" onClick={crear} className='btnSave'>
+                                <button type="button" onClick={crear} className='btnPost'>
                                     Agregar
                                 </button>
                             )}

@@ -40,13 +40,10 @@ try {
         $item8 = $_POST['item8'];
         $item9 = $_POST['item9'];
         $item10 = $_POST['item10'];
-        $item11 = $_POST['item11'];
-        $item12 = $_POST['item12'];
-        $item13 = $_POST['item13'];
-        $item14 = $_POST['item14'];
-        $item15 = $_POST['item15'];
         $precioAnterior = $_POST['precioAnterior'];
-        if (!empty($descripcion) && !empty($titulo) && !empty($precio) &&  !empty($categoria) &&  !empty($masVendido)) {
+        $stock = $_POST['stock'];
+        $subcategoria = $_POST['subcategoria'];
+        if (!empty($descripcion) && !empty($titulo) && !empty($precio) &&  !empty($categoria) &&  !empty($masVendido) &&  !empty($stock) &&  !empty($subcategoria)) {
 
             // Verificar si se enviaron imágenes
             $imagenesPresentes = isset($_FILES['imagen1']) || isset($_FILES['imagen2']) || isset($_FILES['imagen3']) || isset($_FILES['imagen4']);
@@ -101,10 +98,10 @@ try {
                 }
 
                 // Almacenar enlaces completos en la base de datos
-                $sqlInsert = "INSERT INTO `productos` (descripcion, titulo, precio, categoria, masVendido, imagen1, imagen2 , imagen3, imagen4,
-                 item1, item2, item3, item4, item5, item6, item7, item8, item9, item10,precioAnterior) 
-                 VALUES (:descripcion, :titulo, :precio, :categoria,:masVendido, :imagen1, :imagen2, :imagen3 , :imagen4,
-                 :item1, :item2, :item3, :item4, :item5, :item6, :item7, :item8, :item9, :item10, :precioAnterior)";
+                $sqlInsert = "INSERT INTO `productos` (descripcion, titulo, precio, categoria,subcategoria, masVendido, imagen1, imagen2 , imagen3, imagen4,
+                 item1, item2, item3, item4, item5, item6, item7, item8, item9, item10,precioAnterior,stock) 
+                 VALUES (:descripcion, :titulo, :precio, :categoria, :subcategoria, :masVendido, :imagen1, :imagen2, :imagen3 , :imagen4,
+                 :item1, :item2, :item3, :item4, :item5, :item6, :item7, :item8, :item9, :item10, :precioAnterior, :stock)";
                 $stmt = $conexion->prepare($sqlInsert);
                 $stmt->bindParam(':descripcion', $descripcion);
                 $stmt->bindParam(':titulo', $titulo);
@@ -126,6 +123,8 @@ try {
                 $stmt->bindParam(':item9', $item9);
                 $stmt->bindParam(':item10', $item10);
                 $stmt->bindParam(':precioAnterior', $precioAnterior);
+                $stmt->bindParam(':stock', $stock);
+                $stmt->bindParam(':subcategoria', $subcategoria);
                 $stmt->execute();
 
                 // Obtener el ID de la última inserción

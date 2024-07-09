@@ -29,12 +29,25 @@ export default function Detail() {
     const [loading, setLoading] = useState(true);
     const [contactos, setContactos] = useState([]);
     const [favoritos, setFavoritos] = useState([]);
-    const [selectedItem, setSelectedItem] = useState('');
+    const items = [producto?.item1, producto?.item2, producto?.item3, producto?.item4, producto?.item5, producto?.item6, producto?.item7, producto?.item8, producto?.item9, producto?.item10]
+
+    // const [selectedItem, setSelectedItem] = useState(items[0] || "");
+    const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+
+
     useEffect(() => {
         cargarProductos();
         cargarContacto();
         cargarFavoritos();
+        if (items.length > 0) {
+            setSelectedItemIndex(0);
+        }
+
     }, []);
+    const handleSelectionChange = (index) => {
+        setSelectedItemIndex(index);
+    };
+
     const cargarContacto = () => {
         fetch(`${baseURL}/contactoGet.php`, {
             method: 'GET',
@@ -99,10 +112,11 @@ export default function Detail() {
         const formattedPrice = Number(producto?.precio).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         const price = encodeURIComponent(formattedPrice);
         const category = encodeURIComponent(producto?.categoria);
-        const item = selectedItem;
+        const item = items[selectedItemIndex];
+
         const message = `Hola, quisiera más información sobre\n\n *${title}*
         \nCategoría: ${category}
-        \n - ${item}
+        \n${item}
         \n$${formattedPrice}`;
 
         const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
@@ -116,37 +130,25 @@ export default function Detail() {
 
 
 
-    const addToCart = () => {
+    const addToCart = (selectedItem) => {
         if (producto) {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            // Verificar si existe un producto con el mismo ID en el carrito
             const existingItemIndex = cart.findIndex(item =>
                 item.idProducto === producto.idProducto
             );
             if (existingItemIndex !== -1) {
-                // Si el producto ya existe en el carrito, agregamos el nuevo sabor al array de sabores
                 const existingItem = cart[existingItemIndex];
-                const updatedSabores = [...existingItem.item, selectedItem]; // Agregar el nuevo sabor
-
-                // Actualizar la cantidad del producto existente en el carrito
+                const updatedSabores = [...existingItem.item, selectedItem];
                 const updatedCantidad = existingItem.cantidad + cantidad;
-
-                // Actualizar el producto existente en el carrito con el nuevo sabor y cantidad
                 cart[existingItemIndex] = { ...existingItem, item: updatedSabores, cantidad: updatedCantidad };
             } else {
-                // Si el producto no existe en el carrito, lo agregamos con el sabor seleccionado
                 cart.push({ idProducto: producto.idProducto, item: [selectedItem], cantidad });
             }
-
-            // Actualizamos el carrito en el localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
-            // Agregamos la llamada a cargarProductos para actualizar la lista de productos en Products
-            cargarProductos();
+            cargarProductos(); // Actualizar la lista de productos en Products
             toast.success('Producto agregado');
-
         }
     };
-
 
     const incrementCantidad = () => {
         setCantidad(cantidad + 1);
@@ -352,7 +354,23 @@ export default function Detail() {
     if (!producto) {
         return <DetailLoading />;
     }
+    // Función para aumentar la cantidad de un producto en el carrito
+    const increaseQuantity = (index) => {
+        const updatedCartItems = [...cartItems];
+        updatedCartItems[index].cantidad += 1;
+        setCartItems(updatedCartItems);
+        localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+    };
 
+    // Función para disminuir la cantidad de un producto en el carrito
+    const decreaseQuantity = (index) => {
+        const updatedCartItems = [...cartItems];
+        if (updatedCartItems[index].cantidad > 1) {
+            updatedCartItems[index].cantidad -= 1;
+            setCartItems(updatedCartItems);
+            localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+        }
+    };
 
     return (
 
@@ -472,140 +490,58 @@ export default function Detail() {
                 <div className="textDetail">
                     <h2 className="title">{producto.titulo}</h2>
                     <hr />
-                    <h4>  <FontAwesomeIcon icon={faStar} />{producto.categoria}</h4>
-                    <h5 className="price">${producto.precio.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
-                    <p>{producto.descripcion}</p>
-                    <div className='itemsDetail'>
+                    <div className="deFLexBuet">
+                        <h4>  <FontAwesomeIcon icon={faStar} />{producto.categoria} | {producto.subcategoria}</h4>
+                        {producto.stock >= 1 ? (
+                            <h4 style={{ color: 'green', backgroundColor: '#ccffcc', padding: '0px 10px', borderRadius: '6px' }}>Stock {producto.stock}</h4>
+                        ) : producto.stock <= 0 ? (
+                            <h4 style={{ color: 'red', backgroundColor: '#ffc1c1', padding: '0px 10px', borderRadius: '6px' }}>Agotado</h4>
+                        ) : (
 
-
-                        {producto.item1 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item1}
-                                    checked={selectedItem === producto.item1}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item1}
-                            </label>
-                        )}
-                        {producto.item2 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item2}
-                                    checked={selectedItem === producto.item2}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item2}
-                            </label>
-                        )}
-                        {producto.item3 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item3}
-                                    checked={selectedItem === producto.item3}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item3}
-                            </label>
-                        )}
-                        {producto.item4 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item4}
-                                    checked={selectedItem === producto.item4}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item4}
-                            </label>
-                        )}
-                        {producto.item5 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item5}
-                                    checked={selectedItem === producto.item5}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item5}
-                            </label>
-                        )}
-                        {producto.item6 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item6}
-                                    checked={selectedItem === producto.item6}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item6}
-                            </label>
-                        )}
-                        {producto.item7 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item7}
-                                    checked={selectedItem === producto.item7}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item7}
-                            </label>
-                        )}
-                        {producto.item8 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item8}
-                                    checked={selectedItem === producto.item8}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item8}
-                            </label>
-                        )}
-                        {producto.item9 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item9}
-                                    checked={selectedItem === producto.item9}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item9}
-                            </label>
-                        )}
-                        {producto.item10 && (
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="talle"
-                                    value={producto.item10}
-                                    checked={selectedItem === producto.item10}
-                                    onChange={(e) => setSelectedItem(e.target.value)}
-                                />
-                                {producto.item10}
-                            </label>
+                            <h4>{producto.stock}</h4>
                         )}
                     </div>
+
+                    <div className='deFLexPrice'>
+                        <h5 className="price">
+                            ${String(producto?.precio)?.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+
+                        </h5>
+
+                        {
+                            (producto?.precioAnterior !== 0 && producto?.precioAnterior !== undefined) && (
+                                <h5 className='precioTachadoDetail'>${`${producto?.precioAnterior}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                            )
+                        }
+
+
+                    </div>
+                    <p>{producto.descripcion}</p>
+                    <div className='itemsDetail'>
+                        {producto && items.length > 0 && items.map((item, index) => (
+                            item && (
+                                <label key={index}>
+                                    <input
+                                        type="radio"
+                                        name="talle"
+                                        value={item}
+                                        checked={selectedItemIndex === index}
+                                        onChange={() => handleSelectionChange(index)} // Actualizar el índice cuando se cambia la selección
+                                    />
+                                    {item}
+                                </label>
+                            )
+                        ))}
+                    </div>
+
+
                     <div className='deFlexCart'>
                         <button onClick={decrementCantidad}>-</button>
                         <span>{cantidad}</span>
                         <button onClick={incrementCantidad}>+</button>
                     </div>
                     <div className='deFlexGoTocart'>
-                        <button onClick={addToCart} className='btnAdd'>Agregar  <FontAwesomeIcon icon={faShoppingCart} />  </button>
+                        <button onClick={() => addToCart(items[selectedItemIndex])} className='btnAdd'>Agregar  <FontAwesomeIcon icon={faShoppingCart} />  </button>
                         <button className="wpp" onClick={handleWhatsappMessage}>
                             WhatsApp
                             <img src={whatsappIcon} alt="whatsappIcon" />
@@ -658,24 +594,28 @@ export default function Detail() {
                                 ) : (
                                     <div>
 
-                                        {cartItems.map((item) => (
-                                            <div key={item.idProducto} className='cardProductCart'>
+                                        {cartItems.map((item, index) => (
+                                            <div key={item?.idProducto} className='cardProductCart' >
                                                 <Anchor to={`/producto/${item?.idProducto}/${item?.titulo?.replace(/\s+/g, '-')}`} onClick={closeModal}>
                                                     <img src={obtenerImagen(item)} alt="imagen" />
                                                 </Anchor>
                                                 <div className='cardProductCartText'>
                                                     <h3>{item.titulo}</h3>
-                                                    <span>Cantidad: {item.cantidad}</span>
-
                                                     <span>
                                                         {item?.item?.map((sabor, index) => (
                                                             <span key={index}> {sabor}</span>
                                                         ))}
                                                     </span>
                                                     <strong>${item?.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</strong>
-
                                                 </div>
-                                                <button onClick={() => removeFromCart(item.idProducto)} className='deleteCart'>  <FontAwesomeIcon icon={faTrash} /></button>
+                                                <div className='deColumn'>
+                                                    <button onClick={() => removeFromCart(item.idProducto)} className='deleteCart'>  <FontAwesomeIcon icon={faTrash} /></button>
+                                                    <div className='deFlexCantidad'>
+                                                        <button onClick={() => decreaseQuantity(index)}>-</button>
+                                                        <span>{item.cantidad}</span>
+                                                        <button onClick={() => increaseQuantity(index)}>+</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>

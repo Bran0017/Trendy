@@ -1,0 +1,27 @@
+.bgPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--blanco);
+    background-color: var(--color1);
+    margin: 0px 9%;
+    border-radius: 10px;
+    padding-top: 4rem;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.bgPage a{
+    color: var(--blanco);
+}
+
+@media (max-width: 1024px) {
+    .bgPage {
+        padding-top: 0;
+        height: 30vh!important;
+        margin: 0;
+        border-radius: 0;
+    }
+}

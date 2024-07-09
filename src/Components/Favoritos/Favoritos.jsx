@@ -85,21 +85,21 @@ export default function Favoritos() {
                                     if (!producto) return null;
                                     return (
 
-                                        <>
-                                            <button onClick={() => eliminarProducto(id)} className='deleteFav'><FontAwesomeIcon icon={faHeart} /></button>
-                                            <div key={producto.idProducto} className='cardProductCart' >
-                                                <Anchor to={`/producto/${producto?.idProducto}/${producto?.titulo?.replace(/\s+/g, '-')}`} onClick={closeModal} >
-                                                    <img src={obtenerImagen(producto)} alt="imagen" />
-                                                </Anchor>
-                                                <div className='cardProductCartText'>
-                                                    <h3>{producto.titulo}</h3>
-                                                    <span>{producto.categoria}</span>
-                                                    <strong>${producto?.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</strong>
 
-                                                </div>
+                                        <div key={producto.idProducto} className='cardProductCart' >
+                                            <Anchor to={`/producto/${producto?.idProducto}/${producto?.titulo?.replace(/\s+/g, '-')}`} onClick={closeModal} >
+                                                <img src={obtenerImagen(producto)} alt="imagen" />
+                                            </Anchor>
+                                            <div className='cardProductCartText'>
+                                                <h3>{producto.titulo}</h3>
+                                                <span>{producto.categoria}</span>
+                                                <strong>${producto?.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</strong>
+
                                             </div>
+                                            <button onClick={() => eliminarProducto(id)} className='deleteFav'><FontAwesomeIcon icon={faHeart} /></button>
+                                        </div>
 
-                                        </>
+
                                     );
                                 })}
                             </div>

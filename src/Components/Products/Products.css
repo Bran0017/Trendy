@@ -88,7 +88,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 10px;
     justify-content: space-between;
 }
 .cardText h4{
@@ -109,11 +109,11 @@
     font-size: 15px;
     color: var(--color1);
 }
-.cardText p{
+.cardText span{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 30ch;
+    max-width: 27ch;
     font-weight: 400;
     font-size: 14px;
     color: var(--text-color2);
@@ -185,11 +185,7 @@
 .espacio{
     height: 100vh;
 }
-.title {
-    padding: 0px 1rem 0;
-    font-weight: 500;
-   color: var(--text-color2);
-}
+
 
 .modalText{
     padding: 20px;
@@ -342,7 +338,7 @@
     font-size: 15px;
     color: var(--color1);
 }
-.cardTextSelected p{
+.cardTextSelected span{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -375,6 +371,23 @@
     color: var(--text-color2)!important;
   
   }
+
+.deFlexTitlesection{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2%;
+    align-items: center;
+    
+}
+.deFlexTitlesection h3{
+    font-weight: 500;
+   color: var(--text-color2);
+}
+.deFlexTitlesection button{
+    background-color: transparent;
+    border: none;
+    color: var(--color1);
+}
 @media (max-width: 700px){
     .iconCard{
         top: 72%;
@@ -390,10 +403,14 @@
         border-radius: 0;
 }
     
-    .title{
-        padding: 0px 3% 0;
-        font-size: 16px!important;
-    }
+    .deFlexTitlesection{
+    
+    padding: 0 4%;
+  
+}
+.deFlexTitlesection h3{
+    font-size: 17px;
+}
     .fixed {
         padding: 0px 2%;
         background-color: var(--blanco)!important;
@@ -482,7 +499,7 @@
         max-width: 25ch;
         
     }
-    .cardText p{
+    .cardText span{
       
         max-width: 20ch;
     }

@@ -5,7 +5,9 @@
     gap: 10px;
     position: relative;
 }
-
+.inputSearchDashboard .modalInput{
+    height: auto
+}
 .search{
     padding: 3px 4px;
     border-radius: 8px;

@@ -18,6 +18,7 @@ export default function ProductosData() {
     const [nuevoPrecio, setNuevoPrecio] = useState('');
     const [nuevoPrecioAnterior, setNuevoPrecioAnterior] = useState(0);
     const [nuevaCategoria, setNuevaCategoria] = useState('');
+    const [nuevaSubCategoria, setNuevaSubCategoria] = useState('');
     const [producto, setProducto] = useState({});
     const [modalImagenVisible, setModalImagenVisible] = useState(false);
     const [imagenSeleccionada, setImagenSeleccionada] = useState('');
@@ -26,6 +27,7 @@ export default function ProductosData() {
     const [filtroCategoria, setFiltroCategoria] = useState('');
     const [filtroCategoria2, setFiltroCategoria2] = useState('');
     const [filtroMasVendido, setFiltroMasVendido] = useState('');
+    const [filtroSubCategoria, setFiltroSubCategoria] = useState('');
     const [ordenInvertido, setOrdenInvertido] = useState(false);
     const [imagenPreview, setImagenPreview] = useState(null);
     const [imagenPreview2, setImagenPreview2] = useState(null);
@@ -48,7 +50,8 @@ export default function ProductosData() {
     const [item8, setItem8] = useState('');
     const [item9, setItem9] = useState('');
     const [item10, setItem10] = useState('');
-
+    const [nuevoStock, setNuevoStock] = useState('');
+    const [subcategorias, setSubCategorias] = useState([]);
     const cerrarModalImagen = () => {
         setModalImagenVisible(false);
     };
@@ -81,6 +84,8 @@ export default function ProductosData() {
         setItem9(producto.item9);
         setItem10(producto.item10);
         setNuevoPrecioAnterior(producto.precioAnterior)
+        setNuevoStock(producto.stock)
+        setNuevaSubCategoria(producto.subcategoria);
     }, [producto]);
 
     const cargarProductos = () => {
@@ -133,6 +138,8 @@ export default function ProductosData() {
         setNuevoTitulo(item.titulo);
         setNuevaDescripcion(item.descripcion);
         setNuevoPrecio(item.precio);
+        setNuevaCategoria(producto.categoria);
+        setNuevaSubCategoria(producto.subcategoria);
         setModalVisible(true);
     };
 
@@ -146,7 +153,8 @@ export default function ProductosData() {
         const categoriaMatch = !filtroCategoria || item.categoria.includes(filtroCategoria);
         const masVendidoMatch = !filtroMasVendido || item.masVendido.includes(filtroMasVendido);
         const categoriasMatch = !filtroCategoria2 || item.categoria.includes(filtroCategoria2);
-        return idMatch && tituloMatch && categoriaMatch && masVendidoMatch && categoriasMatch;
+        const subcategoriasMatch = !filtroSubCategoria || item.subcategoria.includes(filtroSubCategoria);
+        return idMatch && tituloMatch && categoriaMatch && masVendidoMatch && categoriasMatch && subcategoriasMatch;
     });
 
     const descargarExcel = () => {
@@ -229,6 +237,8 @@ export default function ProductosData() {
             item9: item9 !== undefined ? item9 : producto.item9,
             item10: item10 !== undefined ? item10 : producto.item10,
             precioAnterior: nuevoPrecioAnterior !== 0 ? nuevoPrecioAnterior : producto.precioAnterior,
+            stock: nuevoStock !== '' ? nuevoStock : producto.stock,
+            nuevaSubCategoria: nuevaSubCategoria !== '' ? nuevaSubCategoria : producto.subcategoria,
         };
 
         fetch(`${baseURL}/productoTextPut.php?idProducto=${idProducto}`, {
@@ -330,7 +340,7 @@ export default function ProductosData() {
 
     useEffect(() => {
         cargarCategoria();
-
+        cargarSubCategoria()
     }, []);
 
 
@@ -344,6 +354,17 @@ export default function ProductosData() {
                 console.log(data.categorias)
             })
             .catch(error => console.error('Error al cargar contactos:', error));
+    };
+    const cargarSubCategoria = () => {
+        fetch(`${baseURL}/subCategoriaGet.php`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                setSubCategorias(data.subcategorias || []);
+                console.log(data.subcategorias)
+            })
+            .catch(error => console.error('Error al cargar subcategorias:', error));
     };
     return (
         <div>
@@ -373,6 +394,17 @@ export default function ProductosData() {
                             {
                                 categorias.map(item => (
                                     <option value={item?.categoria}>{item?.categoria}</option>
+                                ))
+                            }
+
+                        </select>
+                    </div>
+                    <div className='inputsColumn'>
+                        <select value={filtroSubCategoria} onChange={(e) => setFiltroSubCategoria(e.target.value)}>
+                            <option value="">Subcategorias</option>
+                            {
+                                subcategorias.map(item => (
+                                    <option value={item?.subcategoria}>{item?.subcategoria}</option>
                                 ))
                             }
 
@@ -476,6 +508,20 @@ export default function ProductosData() {
                                     </select>
                                 </fieldset>
                                 <fieldset>
+                                    <legend>Subcategoria</legend>
+                                    <select
+                                        value={nuevaSubCategoria !== '' ? nuevaSubCategoria : producto.subcategoria}
+                                        onChange={(e) => setNuevaSubCategoria(e.target.value)}
+                                    >
+                                        <option value={producto.subcategoria}>{producto.subcategoria}</option>
+                                        {
+                                            subcategorias.map(item => (
+                                                <option value={item?.subcategoria}>{item?.subcategoria}</option>
+                                            ))
+                                        }
+                                    </select>
+                                </fieldset>
+                                <fieldset>
                                     <legend>Más vendido</legend>
                                     <select
                                         value={nuevoMasVendido !== '' ? nuevoMasVendido : producto.masVendido}
@@ -486,7 +532,15 @@ export default function ProductosData() {
                                         <option value="no">No</option>
                                     </select>
                                 </fieldset>
+                                <fieldset>
+                                    <legend>Stock</legend>
 
+                                    <input
+                                        type="number"
+                                        value={nuevoStock !== '' ? nuevoStock : producto.stock}
+                                        onChange={(e) => setNuevoStock(e.target.value)}
+                                    />
+                                </fieldset>
                                 <fieldset>
                                     <legend>Precio anterior</legend>
                                     <input

@@ -40,6 +40,14 @@ try {
     )";
     crearTablaSiNoExiste($conexion, 'categorias', $consultaCategorias);
 
+       // Crear tabla 'subcategorias' si no existe
+       $consultaCategorias = "CREATE TABLE IF NOT EXISTS `subcategorias` (
+        idSubCategoria INT(11) AUTO_INCREMENT PRIMARY KEY,
+        subcategoria VARCHAR(100) NOT NULL
+    )";
+    crearTablaSiNoExiste($conexion, 'subcategorias', $consultaCategorias);
+
+    
     // Crear tabla 'contacto' si no existe
     $consultaContacto = "CREATE TABLE IF NOT EXISTS `contacto` (
         idContacto INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -67,6 +75,7 @@ try {
         titulo VARCHAR(255) NOT NULL,
         precio INT(100) NOT NULL,
         categoria VARCHAR(30) NOT NULL,
+        subcategoria VARCHAR(30) NOT NULL,
         masVendido VARCHAR(30) NOT NULL,
         imagen1 VARCHAR(900),
         imagen2 VARCHAR(900),
@@ -83,6 +92,7 @@ try {
         item9 VARCHAR(255),
         item10 VARCHAR(255),
         precioAnterior INT(100) NOT NULL,
+        stock INT(255) NOT NULL,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     crearTablaSiNoExiste($conexion, 'productos', $consultaProductos);

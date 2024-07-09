@@ -206,7 +206,23 @@ export default function Cart() {
         setModalIsOpen2(false);
     };
 
+    // Función para aumentar la cantidad de un producto en el carrito
+    const increaseQuantity = (index) => {
+        const updatedCartItems = [...cartItems];
+        updatedCartItems[index].cantidad += 1;
+        setCartItems(updatedCartItems);
+        localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+    };
 
+    // Función para disminuir la cantidad de un producto en el carrito
+    const decreaseQuantity = (index) => {
+        const updatedCartItems = [...cartItems];
+        if (updatedCartItems[index].cantidad > 1) {
+            updatedCartItems[index].cantidad -= 1;
+            setCartItems(updatedCartItems);
+            localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+        }
+    };
     return (
         <div>
 
@@ -241,24 +257,28 @@ export default function Cart() {
                             ) : (
                                 <div>
 
-                                    {cartItems.map((item) => (
+                                    {cartItems.map((item, index) => (
                                         <div key={item?.idProducto} className='cardProductCart' >
                                             <Anchor to={`/producto/${item?.idProducto}/${item?.titulo?.replace(/\s+/g, '-')}`} onClick={closeModal}>
                                                 <img src={obtenerImagen(item)} alt="imagen" />
                                             </Anchor>
                                             <div className='cardProductCartText'>
                                                 <h3>{item.titulo}</h3>
-                                                <span>Cantidad: {item.cantidad}</span>
-
                                                 <span>
                                                     {item?.item?.map((sabor, index) => (
                                                         <span key={index}> {sabor}</span>
                                                     ))}
                                                 </span>
                                                 <strong>${item?.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</strong>
-
                                             </div>
-                                            <button onClick={() => removeFromCart(item.idProducto)} className='deleteCart'>  <FontAwesomeIcon icon={faTrash} /></button>
+                                            <div className='deColumn'>
+                                                <button onClick={() => removeFromCart(item.idProducto)} className='deleteCart'>  <FontAwesomeIcon icon={faTrash} /></button>
+                                                <div className='deFlexCantidad'>
+                                                    <button onClick={() => decreaseQuantity(index)}>-</button>
+                                                    <span>{item.cantidad}</span>
+                                                    <button onClick={() => increaseQuantity(index)}>+</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>

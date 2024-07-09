@@ -79,25 +79,21 @@ hr{
 .share{
     background-color: var(--gris);
     border: none;
-    padding: 7px;
-    border-radius: 7px;
     border: none;
     font-size: 17px;
-    color: var(--color1);
-    padding: 4px 10px;
-    border-radius: 4px;
+    color: var(--text-color2);
+    padding: 8px 9px;
+    border-radius: 100%;
     cursor: pointer;
 }
 .favoritos-btn{
     background-color: var(--gris);
     border: none;
-    padding: 7px;
-    border-radius: 7px;
     border: none;
     font-size: 17px;
-    color: var(--color1);
-    padding: 4px 10px;
-    border-radius: 4px;
+    color: var(--text-color2);
+    padding: 8px 9px;
+    border-radius: 100%;
     cursor: pointer;
 }
 
@@ -152,6 +148,13 @@ hr{
     margin-top: 1rem;
   
 }
+.precioTachadoDetail {
+    text-decoration: line-through;
+    color: var(--text-color2)!important;
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 1rem;
+  }
 .titlecoment{
     color: var(--text-color2);
   
@@ -185,10 +188,11 @@ hr{
 .back{
     background-color: var(--gris);
     border: none;
-    padding: 7px;
-    border-radius: 7px;
-    color: var(--color1);
+    padding: 7px 9px;
+    border-radius: 100%;
+    color: var(--text-color2);
     font-size: 17px;
+   
 }
 .textDetail h4{
     display: flex;
@@ -196,6 +200,11 @@ hr{
     align-items: center;
     color: var(--text-color2);
     font-weight: 500;
+}
+.deFLexBuet{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 @media (max-width: 1024px) {
     .deFLexIcon{
@@ -209,9 +218,9 @@ hr{
     .deFlexDetail{
         position: absolute ;
         z-index: 3;
-        top: 6%;
+        top: 0;
         width: 100%;
-        padding: 20px;
+        padding: 0 20px;
     }
     #swiperDetail{
         display: flex;
