@@ -23,6 +23,7 @@ export default function Profile() {
             })
             .catch(error => console.error('Error al cargar contactos:', error));
     };
+
     return (
         <div className='profileContain'>
             <img src={logo} alt="" />
@@ -30,12 +31,11 @@ export default function Profile() {
             <div className='socials'>
                 <Anchor to={contactos.instagram} target="_blank"><i className='fa fa-instagram'></i></Anchor>
                 <Anchor to={`tel:${contactos.telefono}`} target="_blank"><i className='fa fa-whatsapp'></i></Anchor>
-                <Anchor to='' target="_blank"><i class='fa fa-share'></i></Anchor>
+                <Anchor to={contactos.facebook} target="_blank"><i className='fa fa-facebook'></i></Anchor>
             </div>
             <div className='profileText'>
                 <Anchor to={`mailto:${contactos.email}`} target="_blank">{contactos.email}</Anchor>
                 <Anchor to={`https://www.google.com/maps?q=${encodeURIComponent(contactos.direccion)}`} target="_blank">{contactos.direccion}</Anchor>
-                <Anchor to={`https://www.google.com/maps?q=${encodeURIComponent(contactos.localidad)}`} target="_blank">{contactos.localidad}</Anchor>
 
             </div>
         </div>

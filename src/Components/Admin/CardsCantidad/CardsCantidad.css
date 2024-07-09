@@ -63,9 +63,12 @@
 @media (max-width: 1024px){
    .CardsCantidad{
      flex-direction: row;
-     justify-content: space-between;
+     justify-content: space-around;
      width: 100%;
      gap: 1rem;
+  }
+  .cardCantidad{
+   width: 45%;
   }
   .icons{
    font-size: 15px;

@@ -1,5 +1,6 @@
 import IndexLayout from "../Layouts/IndexLayout";
 import MainLayout from "../Layouts/MainLayout";
+import PagesLayaut from '../Layouts/PagesLayaut'
 import { createBrowserRouter } from "react-router-dom";
 import Productos from '../Pages/Productos/Productos'
 import Usuarios from '../Pages/Usuarios/Usuarios'
@@ -8,13 +9,24 @@ import Main from "./Main/Main";
 import Contacto from "./Contacto/Contacto";
 import Categorias from "./Categorias/Categorias";
 import Codigos from "./Codigos/Codigos";
-
+import PageDetail from '../Pages/PageDetail/PageDetail';
 export const router = createBrowserRouter([
 
     {
         path: "/",
         element: <IndexLayout />,
 
+    },
+    {
+        path: "/",
+        element: <PagesLayaut />,
+        children: [
+            {
+                path: `/producto/:idProducto/:producto`,
+                element: <PageDetail />,
+            },
+
+        ]
     },
     {
         path: "/",

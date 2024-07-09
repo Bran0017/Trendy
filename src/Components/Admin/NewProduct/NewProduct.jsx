@@ -20,6 +20,17 @@ export default function NewProduct() {
     const [isImage4Selected, setIsImage4Selected] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [categorias, setCategoras] = useState([]);
+    const [item1, setItem1] = useState('');
+    const [item2, setItem2] = useState('');
+    const [item3, setItem3] = useState('');
+    const [item4, setItem4] = useState('');
+    const [item5, setItem5] = useState('');
+    const [item6, setItem6] = useState('');
+    const [item7, setItem7] = useState('');
+    const [item8, setItem8] = useState('');
+    const [item9, setItem9] = useState('');
+    const [item10, setItem10] = useState('');
+    const [precioAnterior, setPrecioAnterior] = useState('');
     const toggleModal = () => {
         setModalOpen(!modalOpen);
     };
@@ -200,8 +211,143 @@ export default function NewProduct() {
 
                                     </select>
                                 </fieldset>
+                                <fieldset>
+                                    <legend>Precio anterior</legend>
+                                    <input
+                                        type="number"
+                                        id="precioAnterior"
+                                        name="precioAnterior"
+                                        min="0"
+                                        step="0.01"
+                                        required
+                                        value={precioAnterior}
+                                        onChange={(e) => setPrecioAnterior(e.target.value)}
+                                    />
+                                </fieldset>
+                                <div className='items'>
+                                    <fieldset>
+                                        <legend>Item 1</legend>
+                                        <input
+                                            type="text"
+                                            id="item1"
+                                            name="item1"
+                                            required
+                                            value={item1}
+                                            onChange={(e) => setItem1(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 2</legend>
+                                        <input
+                                            type="text"
+                                            id="item2"
+                                            name="item2"
+                                            required
+                                            value={item2}
+                                            onChange={(e) => setItem2(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 3</legend>
+                                        <input
+                                            type="text"
+                                            id="item3"
+                                            name="item3"
+                                            required
+                                            value={item3}
+                                            onChange={(e) => setItem3(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 4</legend>
+                                        <input
+                                            type="text"
+                                            id="item4"
+                                            name="item4"
+                                            required
+                                            value={item4}
+                                            onChange={(e) => setItem4(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 5</legend>
+                                        <input
+                                            type="text"
+                                            id="item5"
+                                            name="item5"
+                                            required
+                                            value={item5}
+                                            onChange={(e) => setItem5(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 6</legend>
+                                        <input
+                                            type="text"
+                                            id="item6"
+                                            name="item6"
+                                            required
+                                            value={item6}
+                                            onChange={(e) => setItem6(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 7</legend>
+                                        <input
+                                            type="text"
+                                            id="item7"
+                                            name="item7"
+                                            required
+                                            value={item7}
+                                            onChange={(e) => setItem7(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 8</legend>
+                                        <input
+                                            type="text"
+                                            id="item8"
+                                            name="item8"
+                                            required
+                                            value={item8}
+                                            onChange={(e) => setItem8(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 9</legend>
+                                        <input
+                                            type="text"
+                                            id="item9"
+                                            name="item9"
+                                            required
+                                            value={item9}
+                                            onChange={(e) => setItem9(e.target.value)}
+                                        />
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>Item 10</legend>
+                                        <input
+                                            type="text"
+                                            id="item10"
+                                            name="item10"
+                                            required
+                                            value={item10}
+                                            onChange={(e) => setItem10(e.target.value)}
+                                        />
+                                    </fieldset>
 
 
+
+                                </div>
 
 
 

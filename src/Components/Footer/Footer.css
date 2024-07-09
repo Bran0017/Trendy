@@ -1,6 +1,5 @@
 .FooterContain{
-    margin: 0px 10%;
-    padding: 3%;
+    padding: 50px 10%;
     border-radius: 20px 20px 0 0;
     background-color: var(--color1);
     display: flex;
@@ -12,9 +11,8 @@
 .FooterContain a img{
     width: 50px;
     height: 50px;
-    object-fit: cover;
     border-radius: 100%;
-    
+    object-fit: contain;
 }
 
 .footerText{
@@ -22,18 +20,27 @@
     flex-direction: column;
     gap: 10px;
 }
+.footerText h3{
+    color: var(--blanco);
+}
+.footerText h2{
+    color: var(--blanco);
+    font-weight: 500;
+    margin-bottom: 10px;
+}
 .footerText a{
 
     color: var(--blanco);
+}
+.socials{
+    display: flex;
+    gap: 2rem;
 }
 @media (max-width: 700px){
     .FooterContain{
     margin: 0;
     padding: 20px 4%;
     border-radius: 20px 20px 0 0;
-    background-color: var(--color1);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
 }
 }

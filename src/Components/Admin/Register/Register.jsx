@@ -145,7 +145,7 @@ export default function Register() {
                                     {mensaje2}
                                 </button>
                             ) : (
-                                <button type="submit" className='btnSave'>
+                                <button type="submit" className='btnPost'>
                                     Agregar
                                 </button>
                             )}

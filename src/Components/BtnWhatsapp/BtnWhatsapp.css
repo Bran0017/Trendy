@@ -34,14 +34,14 @@
         background-color: rgba(0, 0, 0, 0.384); 
         z-index: 999; 
         display: flex;
-        justify-content:flex-end;
+        justify-content:end;
         padding: 2rem;
         padding-top: 10rem;
-        height: 100vh;
+
 
 }
 .modal-wpp{
-    top: 0;
+    top: 37%;
     bottom: 0;
     background-color: var(--blanco);
     width: 20rem;
@@ -50,7 +50,9 @@
     flex-direction: column;
     overflow: hidden;
     border-radius:15px ;
-    margin-right: 4%;
+    margin-right: 2%;
+    position: fixed;
+    
 }
 .containModalWpp{
     
@@ -136,12 +138,12 @@
        
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     
     .modal-wpp{
         top: 0;
         background-color: var(--blanco);
-        width: 100%;
+        width: 95%;
         height: 25rem;
         display: flex;
         flex-direction: column;

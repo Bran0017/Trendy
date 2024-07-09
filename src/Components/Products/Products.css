@@ -57,7 +57,7 @@
 }
 .iconCard{
     position: absolute;
-    top: 70%;
+    top: 78%;
     left: 90%;
     background-color: var(--color1);
     color: var(--blanco);
@@ -190,21 +190,7 @@
     font-weight: 500;
    color: var(--text-color2);
 }
-.back{
-    background-color: var(--blanco);
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    padding: 10px 12px;
-    margin: 10px;
-    position: fixed;
-    z-index: 33333;
-    border-radius: 10px;
-    color: var(--text-color2);
-    font-size: 20px;
-    backdrop-filter: blur(30px);
-    
-}
+
 .modalText{
     padding: 20px;
     display: flex;
@@ -233,6 +219,7 @@
 }
 .modalText p,h2{
     color: var(--text-color2);
+    white-space: pre-line;
 }
 .modalText h5{
     color: var(--color1);
@@ -285,32 +272,44 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+    margin-left: 2rem;
+    margin-top: 1rem;
 }
 .deFlexGoTocart{
     display: flex;
     gap: 1rem;
     align-items: center;
     width: 100%;
-    justify-content: space-between;
-    padding: 0 20px;
-    position: absolute;
-    top: 85vh;
     bottom: 0;
     width: 100%;
     left: 0;
     right: 0;
     z-index: 2;
-    background-color: var(--blanco);
 }
 .deFlexCart button{
     color: var(--blanco);
     background-color: var(--color1);
     border: none;
     cursor: pointer;
-    padding: 7px;
     border-radius: 5px;
+    padding: 4px 8px;
+    
 }
-
+.btnAdd{
+    padding: 12px 20px;
+    color: var(--blanco);
+    background-color: var(--color1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.196);
+    border-radius: 10rem;
+    gap: 10px;
+    width: 10rem;
+}
 .categoriSectionSelected{
     display: flex;
     flex-wrap: wrap;
@@ -352,7 +351,34 @@
     font-size: 14px;
     color: var(--text-color2);
 }
+.itemsDetail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.itemsDetail label{
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    background-color: var(--gris);
+    border-radius: 2px;
+    padding: 10px;
+   
+}
+.deFLexPrice{
+    display: flex;
+    gap: 20px;
+    
+}
+.precioTachado {
+    text-decoration: line-through;
+    color: var(--text-color2)!important;
+  
+  }
 @media (max-width: 700px){
+    .iconCard{
+        top: 72%;
+    }
     .overlay-detail {
         justify-content: flex-end;
         align-items:flex-end;
@@ -366,7 +392,7 @@
     
     .title{
         padding: 0px 3% 0;
-        font-size: 16px;
+        font-size: 16px!important;
     }
     .fixed {
         padding: 0px 2%;

@@ -105,7 +105,7 @@ export default function NewBanner() {
                                     {mensaje}
                                 </button>
                             ) : (
-                                <button type="button" onClick={crear} className='btnSave'>
+                                <button type="button" onClick={crear} className='btnPost'>
                                     Agregar
                                 </button>
                             )}

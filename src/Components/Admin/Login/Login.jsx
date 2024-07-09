@@ -54,7 +54,7 @@ export default function Login() {
     return (
         <div className='formContain'>
             <ToastContainer />
-            <h2>Iniciar Sesión</h2>
+            <h2>Administrador</h2>
             <form onSubmit={handleLogin} className='formAuth'>
                 <div className='inputsAuth'>
                     <label htmlFor="email">Email:</label>

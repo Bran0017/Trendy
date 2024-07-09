@@ -1,3 +1,3 @@
-const baseURL = 'https://demo.faugetdigital.shop/';
+const baseURL = 'https://indumentaria.faugetdigital.shop/';
 
 export default baseURL;

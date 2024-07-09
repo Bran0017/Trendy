@@ -48,7 +48,7 @@ try {
         instagram VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL,
         direccion VARCHAR(255) NOT NULL,
-        localidad VARCHAR(100) NOT NULL
+        facebook VARCHAR(100) NOT NULL
     )";
     crearTablaSiNoExiste($conexion, 'contacto', $consultaContacto);
 
@@ -72,6 +72,17 @@ try {
         imagen2 VARCHAR(900),
         imagen3 VARCHAR(900),
         imagen4 VARCHAR(900),
+        item1 VARCHAR(255),
+         item2 VARCHAR(255),
+         item3 VARCHAR(255),
+         item4 VARCHAR(255),
+         item5 VARCHAR(255),
+        item6 VARCHAR(255),
+         item7 VARCHAR(255),
+        item8 VARCHAR(255),
+        item9 VARCHAR(255),
+        item10 VARCHAR(255),
+        precioAnterior INT(100) NOT NULL,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     crearTablaSiNoExiste($conexion, 'productos', $consultaProductos);

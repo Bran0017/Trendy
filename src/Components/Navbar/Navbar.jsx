@@ -6,9 +6,9 @@ import baseURL from '../url';
 import 'swiper/swiper-bundle.css';
 import Profile from '../Profile/Profile'
 import './Navbar.css'
-import Cart from '../Cart/Cart'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+import Favoritos from '../Favoritos/Favoritos'
+import InputSerach from '../InputSerach/InputSearchs'
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [images, setImages] = useState([]);
@@ -42,12 +42,10 @@ export default function Navbar() {
                 </Anchor>
 
                 <div className='deFLexNavs'>
-                    <Anchor to={`/dashboard`} >
-                        <FontAwesomeIcon icon={faUser} className='cartIcon' />
-                    </Anchor>
 
-                    <Cart />
+                    <Favoritos />
 
+                    <InputSerach />
                     <div className={`nav_toggle  ${isOpen && "open"}`} onClick={() => setIsOpen(!isOpen)}>
                         <span></span>
                         <span></span>
@@ -64,17 +62,19 @@ export default function Navbar() {
                 >
                     <div className="modalNav-content">
                         {loading ? (
-                            <div className='loadingBanner'>
+                            <div className='loadingBannerFondo'>
 
                             </div>
 
                         ) : (
 
-                            <div className='fondo'>
-                                <img src={images[0]} alt={`imagen`} />
-                                <Profile />
-                            </div>
+                            <>
+                                <div className='fondo'>
+                                    <img src={images[0]} alt={`imagen`} />
 
+                                </div>
+                                <Profile />
+                            </>
                         )}
 
                     </div>

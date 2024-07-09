@@ -30,6 +30,22 @@ try {
         $precio = $_POST['precio'];
         $categoria = $_POST['categoria'];
         $masVendido = $_POST['masVendido'];
+        $item1 = $_POST['item1'];
+        $item2 = $_POST['item2'];
+        $item3 = $_POST['item3'];
+        $item4 = $_POST['item4'];
+        $item5 = $_POST['item5'];
+        $item6 = $_POST['item6'];
+        $item7 = $_POST['item7'];
+        $item8 = $_POST['item8'];
+        $item9 = $_POST['item9'];
+        $item10 = $_POST['item10'];
+        $item11 = $_POST['item11'];
+        $item12 = $_POST['item12'];
+        $item13 = $_POST['item13'];
+        $item14 = $_POST['item14'];
+        $item15 = $_POST['item15'];
+        $precioAnterior = $_POST['precioAnterior'];
         if (!empty($descripcion) && !empty($titulo) && !empty($precio) &&  !empty($categoria) &&  !empty($masVendido)) {
 
             // Verificar si se enviaron imágenes
@@ -85,8 +101,10 @@ try {
                 }
 
                 // Almacenar enlaces completos en la base de datos
-                $sqlInsert = "INSERT INTO `productos` (descripcion, titulo, precio, categoria, masVendido, imagen1, imagen2 , imagen3, imagen4) 
-                              VALUES (:descripcion, :titulo, :precio, :categoria,:masVendido, :imagen1, :imagen2, :imagen3 , :imagen4)";
+                $sqlInsert = "INSERT INTO `productos` (descripcion, titulo, precio, categoria, masVendido, imagen1, imagen2 , imagen3, imagen4,
+                 item1, item2, item3, item4, item5, item6, item7, item8, item9, item10,precioAnterior) 
+                 VALUES (:descripcion, :titulo, :precio, :categoria,:masVendido, :imagen1, :imagen2, :imagen3 , :imagen4,
+                 :item1, :item2, :item3, :item4, :item5, :item6, :item7, :item8, :item9, :item10, :precioAnterior)";
                 $stmt = $conexion->prepare($sqlInsert);
                 $stmt->bindParam(':descripcion', $descripcion);
                 $stmt->bindParam(':titulo', $titulo);
@@ -97,7 +115,17 @@ try {
                 $stmt->bindParam(':imagen2', $rutaImagen2Completa);
                 $stmt->bindParam(':imagen3', $rutaImagen3Completa);
                 $stmt->bindParam(':imagen4', $rutaImagen4Completa);
-
+                $stmt->bindParam(':item1', $item1);
+                $stmt->bindParam(':item2', $item2);
+                $stmt->bindParam(':item3', $item3);
+                $stmt->bindParam(':item4', $item4);
+                $stmt->bindParam(':item5', $item5);
+                $stmt->bindParam(':item6', $item6);
+                $stmt->bindParam(':item7', $item7);
+                $stmt->bindParam(':item8', $item8);
+                $stmt->bindParam(':item9', $item9);
+                $stmt->bindParam(':item10', $item10);
+                $stmt->bindParam(':precioAnterior', $precioAnterior);
                 $stmt->execute();
 
                 // Obtener el ID de la última inserción

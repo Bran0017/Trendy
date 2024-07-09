@@ -43,13 +43,7 @@
     background-color: var(--color1);
     color: var(--blanco);
 }
-.search-icon{
-    background-color: var(--color1);
-    border-radius: 7px;
-    color: var(--blanco);
-    padding: 7px;
-    font-size: 13px;
-}
+
 @media (max-width: 1024px){
     .search{
         

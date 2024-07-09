@@ -16,7 +16,7 @@ export default function ContactoData() {
     const [nuevoInstagram, setNuevoInstagram] = useState('');
     const [nuevoEmail, setNuevoEmail] = useState('');
     const [nuevaDireccion, setNuevaDieccion] = useState('');
-    const [nuevaLocalidad, setNuevaLocalidad] = useState('');
+    const [nuevofacebook, setNuevofacebook] = useState('');
     const [contacto, setContacto] = useState({});
     const [selectedSection, setSelectedSection] = useState('texto');
 
@@ -78,7 +78,7 @@ export default function ContactoData() {
         setNuevoInstagram(item.instagram);
         setNuevoEmail(item.email);
         setNuevaDieccion(item.direccion);
-        setNuevaLocalidad(item.localidad);
+        setNuevofacebook(item.facebook);
         setModalVisible(true);
     };
 
@@ -95,7 +95,7 @@ export default function ContactoData() {
             instagram: nuevoInstagram !== '' ? nuevoInstagram : contacto.instagram,
             email: nuevoEmail !== '' ? nuevoEmail : contacto.email,
             direccion: nuevaDireccion !== '' ? nuevaDireccion : contacto.direccion,
-            localidad: nuevaLocalidad !== '' ? nuevaLocalidad : contacto.localidad,
+            facebook: nuevofacebook !== '' ? nuevofacebook : contacto.facebook,
         };
 
         fetch(`${baseURL}/contactoPut.php?idContacto=${idContacto}`, {
@@ -206,11 +206,11 @@ export default function ContactoData() {
                                     />
                                 </fieldset>
                                 <fieldset >
-                                    <legend>Localidad</legend>
+                                    <legend>Facebook</legend>
                                     <input
                                         type="text"
-                                        value={nuevaLocalidad !== '' ? nuevaLocalidad : contacto.localidad}
-                                        onChange={(e) => setNuevaLocalidad(e.target.value)}
+                                        value={nuevofacebook !== '' ? nuevofacebook : contacto.facebook}
+                                        onChange={(e) => setNuevofacebook(e.target.value)}
                                     />
                                 </fieldset>
                             </div>
@@ -218,7 +218,7 @@ export default function ContactoData() {
 
 
 
-                            <button className='btnSave' onClick={() => handleUpdateText(contacto.idContacto)} >Guardar cambios</button>
+                            <button className='btnPost' onClick={() => handleUpdateText(contacto.idContacto)} >Guardar </button>
 
                         </div>
 
@@ -236,9 +236,9 @@ export default function ContactoData() {
                             <th>Nombre</th>
                             <th>Telefono</th>
                             <th>Instagram</th>
+                            <th>Facebook</th>
                             <th>Email</th>
                             <th>Direccion</th>
-                            <th>Localidad</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -249,9 +249,9 @@ export default function ContactoData() {
                                 <td>{item.nombre}</td>
                                 <td>{item.telefono}</td>
                                 <td>{item.instagram}</td>
+                                <td>{item.facebook}</td>
                                 <td>{item.email}</td>
                                 <td>{item.direccion}</td>
-                                <td>{item.localidad}</td>
                                 <td>
 
                                     <button className='eliminar' onClick={() => eliminarContacto(item.idContacto)}>

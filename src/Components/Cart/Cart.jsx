@@ -5,7 +5,7 @@ import './Cart.css';
 import whatsappIcon from '../../images/wpp.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faShoppingCart, faTrash } from '@fortawesome/free-solid-svg-icons';
-
+import { Link as Anchor } from "react-router-dom";
 export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [productos, setProductos] = useState([]);
@@ -21,6 +21,8 @@ export default function Cart() {
     const [descuento, setDescuento] = useState(0);
     const [codigoValido, setCodigoValido] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [paymentMethod, setPaymentMethod] = useState('efectivo');
+    const [deliveryOption, setDeliveryOption] = useState('delivery');
     useEffect(() => {
         cargarContacto();
     }, []);
@@ -56,6 +58,7 @@ export default function Cart() {
                 return {
                     ...producto,
                     cantidad: cartItem.cantidad,
+                    item: cartItem.item,
                 };
             });
 
@@ -163,8 +166,7 @@ export default function Cart() {
         const phoneNumber = `${contactos.telefono}`;
 
         const cartDetails = cartItems.map((item) => (
-            `\n*${item.titulo}* - Cantidad: ${item.cantidad}
-    Precio: $${item.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}\n`
+            `\n*${item.titulo}* \n Cantidad: ${item.cantidad} \n ${item?.item}\n Precio: $${item.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}\n`
         ));
 
         let noteMessage = '';
@@ -186,7 +188,11 @@ export default function Cart() {
             `;
         }
 
-        const message = `¡Hola! 🌟 Estoy interesado en encargar:\n\n${cartDetails.join('')}\n${noteMessage}Total: $${formattedTotalPrice}`;
+        const paymentMessage = paymentMethod === 'efectivo' ? 'Pago en efectivo' : 'Pago por transferencia bancaria';
+        const paymentMessage2 = deliveryOption === 'delivery' ? 'Envio a domicilio' : 'Retiro personalmente';
+
+
+        const message = `¡Hola! 🌟 Estoy interesado en encargar:\n\n${cartDetails.join('')}\n${noteMessage}\n${paymentMessage2}\n${paymentMessage}\nTotal: $${formattedTotalPrice}`;
 
         const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
@@ -203,8 +209,16 @@ export default function Cart() {
 
     return (
         <div>
-            <button onClick={openModal} className='cartIcon'><FontAwesomeIcon icon={faShoppingCart} /> </button>
 
+            <button onClick={openModal} className='cartIconFixed'>
+                {
+                    cartItems?.length >= 1 && (
+                        <span>{cartItems.length}</span>
+                    )
+
+                }
+                <FontAwesomeIcon icon={faShoppingCart} />
+            </button>
 
             <Modal
                 isOpen={modalIsOpen}
@@ -228,12 +242,20 @@ export default function Cart() {
                                 <div>
 
                                     {cartItems.map((item) => (
-                                        <div key={item.idProducto} className='cardProductCart'>
-                                            <img src={obtenerImagen(item)} alt="imagen" />
+                                        <div key={item?.idProducto} className='cardProductCart' >
+                                            <Anchor to={`/producto/${item?.idProducto}/${item?.titulo?.replace(/\s+/g, '-')}`} onClick={closeModal}>
+                                                <img src={obtenerImagen(item)} alt="imagen" />
+                                            </Anchor>
                                             <div className='cardProductCartText'>
                                                 <h3>{item.titulo}</h3>
-                                                <p>Cantidad: {item.cantidad}</p>
-                                                <p>Precio: ${item?.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                                                <span>Cantidad: {item.cantidad}</span>
+
+                                                <span>
+                                                    {item?.item?.map((sabor, index) => (
+                                                        <span key={index}> {sabor}</span>
+                                                    ))}
+                                                </span>
+                                                <strong>${item?.precio?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</strong>
 
                                             </div>
                                             <button onClick={() => removeFromCart(item.idProducto)} className='deleteCart'>  <FontAwesomeIcon icon={faTrash} /></button>
@@ -272,14 +294,61 @@ export default function Cart() {
                                     onChange={(e) => setName(e.target.value)}
                                     placeholder='Nombre (opcional)'
                                 />
-                                <input
-                                    type="text"
-                                    id="location"
-                                    value={location}
-                                    onChange={(e) => setLocation(e.target.value)}
-                                    placeholder='Ubicación (opcional)'
-                                />
 
+
+                                <div className='deFLexRadio'>
+                                    <label>Opciones de entrega</label>
+
+                                    <div>
+                                        <input
+                                            type="radio"
+                                            id="delivery"
+                                            name="deliveryOption"
+                                            value="delivery"
+                                            checked={deliveryOption === 'delivery'}
+                                            onChange={() => setDeliveryOption('delivery')}
+                                        />
+                                        <label htmlFor="delivery">Envío a domicilio</label>
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="radio"
+                                            id="pickup"
+                                            name="deliveryOption"
+                                            value="pickup"
+                                            checked={deliveryOption === 'pickup'}
+                                            onChange={() => setDeliveryOption('pickup')}
+                                        />
+                                        <label htmlFor="pickup">Retirar personalmente</label>
+                                    </div>
+                                </div>
+
+                                <div className='deFLexRadio'>
+                                    <label>Formas de pago</label>
+                                    <div >
+                                        <input
+                                            type="radio"
+                                            id="efectivo"
+                                            name="paymentMethod"
+                                            value="efectivo"
+                                            checked={paymentMethod === 'efectivo'}
+                                            onChange={() => setPaymentMethod('efectivo')}
+                                        />
+                                        <label htmlFor="efectivo">Efectivo</label>
+                                    </div>
+                                    <div >
+                                        <input
+                                            type="radio"
+                                            id="transferencia"
+                                            name="paymentMethod"
+                                            value="transferencia"
+                                            checked={paymentMethod === 'transferencia'}
+                                            onChange={() => setPaymentMethod('transferencia')}
+                                        />
+                                        <label htmlFor="transferencia">Transferencia</label>
+                                    </div>
+
+                                </div>
                                 <input
                                     type="text"
                                     id="codigo"

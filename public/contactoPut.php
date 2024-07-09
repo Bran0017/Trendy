@@ -35,16 +35,16 @@ try {
         $nuevoInstagram = isset($data['instagram']) ? $data['instagram'] : null;
         $nuevoEmail = isset($data['email']) ? $data['email'] : null;
         $nuevaDireccion = isset($data['direccion']) ? $data['direccion'] : null;
-        $nuevaLocalidad = isset($data['localidad']) ? $data['localidad'] : null; 
+        $nuevofacebook = isset($data['facebook']) ? $data['facebook'] : null; 
 
-        $sqlUpdate = "UPDATE contacto SET  nombre = :nombre, telefono = :telefono, instagram = :instagram, email = :email, direccion = :direccion, localidad = :localidad WHERE idContacto = :idContacto";
+        $sqlUpdate = "UPDATE contacto SET  nombre = :nombre, telefono = :telefono, instagram = :instagram, email = :email, direccion = :direccion, facebook = :facebook WHERE idContacto = :idContacto";
         $sentenciaUpdate = $conexion->prepare($sqlUpdate);
         $sentenciaUpdate->bindParam(':nombre', $nuevoNombre);
         $sentenciaUpdate->bindParam(':telefono', $nuevoTelefono);
         $sentenciaUpdate->bindParam(':instagram', $nuevoInstagram);
         $sentenciaUpdate->bindParam(':email', $nuevoEmail);
         $sentenciaUpdate->bindParam(':direccion', $nuevaDireccion);
-        $sentenciaUpdate->bindParam(':localidad', $nuevaLocalidad); 
+        $sentenciaUpdate->bindParam(':facebook', $nuevofacebook); 
         $sentenciaUpdate->bindParam(':idContacto', $idContacto, PDO::PARAM_INT);
 
         if ($sentenciaUpdate->execute()) {

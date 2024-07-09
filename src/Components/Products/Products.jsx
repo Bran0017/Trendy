@@ -6,10 +6,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faAngleDoubleRight, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductosLoading from '../ProductosLoading/ProductosLoading';
+import { Link as Anchor } from "react-router-dom";
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 export default function Products() {
     const [categorias, setCategorias] = useState([]);
@@ -23,13 +24,16 @@ export default function Products() {
     const swiperRef = useRef(null);
     const [productos, setProductos] = useState([]);
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todo');
-
+    const [favoritos, setFavoritos] = useState([]);
+    const [selectedItem, setSelectedItem] = useState('');
     // Función para manejar el clic en una categoría
     const handleClickCategoria = (categoria) => {
         setCategoriaSeleccionada(categoria);
     };
     useEffect(() => {
+        cargarFavoritos();
         cargarProductos();
+
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -80,32 +84,48 @@ export default function Products() {
         return null;
     };
 
-    const scrollToCategoria = (index) => {
-        setCategoriaSeleccionada(index);
-        categoriasRefs.current[index].scrollIntoView({ behavior: 'smooth' });
-    };
-
     const openModal = (producto) => {
         setProductoSeleccionado(producto);
         setModalIsOpen(true);
+        const cargarFavoritos = () => {
+            const storedFavoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+            setFavoritos(storedFavoritos);
+        };
+        cargarFavoritos()
     };
 
     const closeModal = () => {
         setModalIsOpen(false);
         setCantidad(1);
+        setSelectedItem('')
+    };
+    const cargarFavoritos = () => {
+        const storedFavoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+        setFavoritos(storedFavoritos);
     };
 
     const addToCart = () => {
         if (productoSeleccionado) {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const existingItemIndex = cart.findIndex(item => item.idProducto === productoSeleccionado.idProducto);
+
+            // Verificar si existe un producto con el mismo ID en el carrito
+            const existingItemIndex = cart.findIndex(item =>
+                item.idProducto === productoSeleccionado.idProducto
+            );
 
             if (existingItemIndex !== -1) {
-                // Si el producto ya existe en el carrito, actualizamos la cantidad
-                cart[existingItemIndex].cantidad += cantidad;
+                // Si el producto ya existe en el carrito, agregamos el nuevo sabor al array de sabores
+                const existingItem = cart[existingItemIndex];
+                const updatedSabores = [...existingItem.talle, selectedItem]; // Agregar el nuevo sabor
+
+                // Actualizar la cantidad del producto existente en el carrito
+                const updatedCantidad = existingItem.cantidad + cantidad;
+
+                // Actualizar el producto existente en el carrito con el nuevo sabor y cantidad
+                cart[existingItemIndex] = { ...existingItem, talle: updatedSabores, cantidad: updatedCantidad };
             } else {
-                // Si el producto no existe en el carrito, lo agregamos
-                cart.push({ idProducto: productoSeleccionado.idProducto, cantidad });
+                // Si el producto no existe en el carrito, lo agregamos con el sabor seleccionado
+                cart.push({ idProducto: productoSeleccionado.idProducto, talle: [selectedItem], cantidad });
             }
 
             // Actualizamos el carrito en el localStorage
@@ -117,9 +137,9 @@ export default function Products() {
             // Agregamos la llamada a cargarProductos para actualizar la lista de productos en Products
             cargarProductos();
             toast.success('Producto agregado');
+
         }
     };
-
 
 
 
@@ -133,6 +153,24 @@ export default function Products() {
         }
     };
 
+    const agregarAFavoritos = (idProducto) => {
+        const favList = [...favoritos];
+        const index = favList.indexOf(idProducto);
+        if (index === -1) {
+            // Si el producto no está en favoritos, lo agregamos
+            favList.push(idProducto);
+            setFavoritos(favList);
+            localStorage.setItem('favoritos', JSON.stringify(favList));
+            console.log('Producto agregado a favoritos');
+
+        } else {
+            // Si el producto está en favoritos, lo eliminamos
+            favList.splice(index, 1);
+            setFavoritos(favList);
+            localStorage.setItem('favoritos', JSON.stringify(favList));
+            console.log('Producto eliminado de favoritos');
+        }
+    };
     return (
         <div className='ProductsContain'>
             <ToastContainer />
@@ -144,9 +182,9 @@ export default function Products() {
                         value="Todo"
                         onClick={() => handleClickCategoria('Todo')}
                         style={{
-                            backgroundColor: categoriaSeleccionada === 'Todo' ? '#F80050' : '',
+                            backgroundColor: categoriaSeleccionada === 'Todo' ? '#0074E4' : '',
                             color: categoriaSeleccionada === 'Todo' ? '#fff' : '',
-                            borderBottom: categoriaSeleccionada === 'Todo' ? '2px solid #F80050' : 'none'
+                            borderBottom: categoriaSeleccionada === 'Todo' ? '2px solid #0074E4' : 'none'
                         }}
                     />
                 }
@@ -159,9 +197,9 @@ export default function Products() {
                         value={categoria}
                         onClick={() => handleClickCategoria(categoria)}
                         style={{
-                            backgroundColor: categoriaSeleccionada === categoria ? '#F80050' : '',
+                            backgroundColor: categoriaSeleccionada === categoria ? '#0074E4' : '',
                             color: categoriaSeleccionada === categoria ? '#fff' : '',
-                            borderBottom: categoriaSeleccionada === categoria ? '2px solid #F80050' : 'none'
+                            borderBottom: categoriaSeleccionada === categoria ? '2px solid #0074E4' : 'none'
                         }}
                     />
                 ))}
@@ -185,15 +223,24 @@ export default function Products() {
                                         >
                                             {productos.filter(item => item.masVendido === "si").map(item => (
                                                 <SwiperSlide id='SwiperSlide-scroll-products-masvendidos' key={item.idProducto}>
-                                                    <div className='cardProdcutmasVendido' onClick={() => openModal(item)}>
+                                                    <Anchor className='cardProdcutmasVendido' to={`/producto/${item.idProducto}/${item.titulo.replace(/\s+/g, '-')}`}>
                                                         <img src={obtenerImagen(item)} alt="imagen" />
                                                         <h6 className='masVendido'>Más Vendido</h6>
                                                         <div className='cardText'>
                                                             <h4>{item.titulo}</h4>
                                                             <p>{item.descripcion}</p>
-                                                            <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                            <div className='deFLexPrice'>
+                                                                <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                                {
+                                                                    (item.precioAnterior !== 0 && item.precioAnterior !== undefined) && (
+                                                                        <h5 className='precioTachado'>${`${item?.precioAnterior}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                                    )
+                                                                }
+                                                            </div>
+
+
                                                         </div>
-                                                    </div>
+                                                    </Anchor>
                                                 </SwiperSlide>
                                             ))}
                                         </Swiper>
@@ -213,15 +260,23 @@ export default function Products() {
                                         >
                                             {productos.map(item => (
                                                 <SwiperSlide id='SwiperSlide-scroll-products' key={item.idProducto}>
-                                                    <div className='cardProdcut' key={item.idProducto} onClick={() => openModal(item)}>
+                                                    <Anchor className='cardProdcut' key={item.idProducto} to={`/producto/${item.idProducto}/${item.titulo.replace(/\s+/g, '-')}`}>
                                                         <img src={obtenerImagen(item)} alt="imagen" />
                                                         <div className='cardText'>
                                                             <h4>{item.titulo}</h4>
                                                             <p>{item.descripcion}</p>
-                                                            <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                            <div className='deFLexPrice'>
+                                                                <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                                {
+                                                                    (item.precioAnterior !== 0 && item.precioAnterior !== undefined) && (
+                                                                        <h5 className='precioTachado'>${`${item?.precioAnterior}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                                    )
+                                                                }
+                                                            </div>
+
                                                             <FontAwesomeIcon icon={faAngleDoubleRight} className='iconCard' />
                                                         </div>
-                                                    </div>
+                                                    </Anchor>
                                                 </SwiperSlide>
                                             ))}
                                         </Swiper>
@@ -237,17 +292,26 @@ export default function Products() {
                                 .filter(item => categoriaSeleccionada !== 'Todo' && item.categoria === categoriaSeleccionada)
                                 // Mapea para renderizar los productos dentro de la categoría
                                 .map(item => (
-                                    <div key={item.idProducto}>
+                                    <Anchor key={item.idProducto} to={`/producto/${item.idProducto}/${item.titulo.replace(/\s+/g, '-')}`} >
+
                                         <div className='cardProdcutSelected' onClick={() => openModal(item)}>
                                             <img src={obtenerImagen(item)} alt="imagen" />
                                             <div className='cardTextSelected'>
                                                 <h4>{item.titulo}</h4>
                                                 <p>{item.descripcion}</p>
-                                                <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                <div className='deFLexPrice'>
+                                                    <h5>${`${item?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                    {
+                                                        (item.precioAnterior !== 0 && item.precioAnterior !== undefined) && (
+                                                            <h5 className='precioTachado'>${`${item?.precioAnterior}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                                        )
+                                                    }
+                                                </div>
+
                                                 <FontAwesomeIcon icon={faAngleDoubleRight} className='iconCard' />
                                             </div>
                                         </div>
-                                    </div>
+                                    </Anchor>
                                 ))}
                         </div>
 
@@ -265,7 +329,12 @@ export default function Products() {
                 overlayClassName="overlay-detail">
                 {productoSeleccionado && (
                     <div className='modal-content-detail'>
-                        <button onClick={closeModal} className='back'>  <FontAwesomeIcon icon={faArrowLeft} /></button>
+                        <div className='backFLex'>
+                            <button onClick={closeModal} className='back'>  <FontAwesomeIcon icon={faArrowLeft} /></button>
+                            <button onClick={() => agregarAFavoritos(productoSeleccionado.idProducto)} className='favoritos-btn'>
+                                <FontAwesomeIcon icon={faHeart} style={{ color: favoritos.includes(productoSeleccionado.idProducto) ? 'red' : 'gray' }} />
+                            </button>
+                        </div>
                         <Swiper
                             effect={'coverflow'}
                             grabCursor={true}
@@ -316,9 +385,142 @@ export default function Products() {
                             <h2>{productoSeleccionado.titulo}</h2>
                             <p>{productoSeleccionado.categoria}</p>
                             <p>{productoSeleccionado.descripcion} </p>
-                            <h5>${`${productoSeleccionado?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                            <div className='deFLexPrice'>
+                                <h5>${`${productoSeleccionado?.precio}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                {
+                                    (productoSeleccionado.precioAnterior !== 0 && productoSeleccionado.precioAnterior !== undefined) && (
+                                        <h5 className='precioTachado'>${`${productoSeleccionado?.precioAnterior}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h5>
+                                    )
+                                }
+                            </div>
+
+                            <div className='itemsDetail'>
+
+
+                                {productoSeleccionado.item1 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item1}
+                                            checked={selectedItem === productoSeleccionado.item1}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item1}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item2 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item2}
+                                            checked={selectedItem === productoSeleccionado.item2}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item2}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item3 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item3}
+                                            checked={selectedItem === productoSeleccionado.item3}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item3}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item4 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item4}
+                                            checked={selectedItem === productoSeleccionado.item4}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item4}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item5 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item5}
+                                            checked={selectedItem === productoSeleccionado.item5}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item5}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item6 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item6}
+                                            checked={selectedItem === productoSeleccionado.item6}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item6}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item7 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item7}
+                                            checked={selectedItem === productoSeleccionado.item7}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item7}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item8 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item8}
+                                            checked={selectedItem === productoSeleccionado.item8}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item8}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item9 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item9}
+                                            checked={selectedItem === productoSeleccionado.item9}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item9}
+                                    </label>
+                                )}
+                                {productoSeleccionado.item10 && (
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="talle"
+                                            value={productoSeleccionado.item10}
+                                            checked={selectedItem === productoSeleccionado.item10}
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        />
+                                        {productoSeleccionado.item10}
+                                    </label>
+                                )}
+                            </div>
 
                         </div>
+
                         <div className='deFlexGoTocart'>
                             <div className='deFlexCart'>
                                 <button onClick={decrementCantidad}>-</button>

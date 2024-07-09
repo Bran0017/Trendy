@@ -158,7 +158,7 @@ export default function CategoriasData() {
 
                             </div>
 
-                            <button className='btnSave' onClick={() => handleUpdateText(categoria.idCategoria)} >Guardar cambios</button>
+                            <button className='btnPost' onClick={() => handleUpdateText(categoria.idCategoria)} >Guardar</button>
 
                         </div>
 
