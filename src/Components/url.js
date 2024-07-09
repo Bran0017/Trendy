@@ -1,3 +1,3 @@
-const baseURL = 'https://ruta55.000webhostapp.com/';
+const baseURL = 'https://tecnologia.faugetdigital.shop/';
 
 export default baseURL;
